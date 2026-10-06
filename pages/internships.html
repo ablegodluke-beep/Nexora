@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nexora Internships & SIWES</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f7fb;
+            color: #17132f;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            padding: 15px 6%;
+
+            background: rgba(255,255,255,.96);
+            backdrop-filter: blur(15px);
+
+            border-bottom: 1px solid #eee;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            width: 40px;
+            height: 40px;
+
+            border-radius: 12px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(
+                135deg,
+                #6c4cff,
+                #a855f7
+            );
+
+            color: white;
+        }
+
+        .back-btn {
+            padding: 11px 18px;
+
+            border-radius: 10px;
+
+            background: #17132f;
+            color: white;
+
+            font-weight: 700;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 75px 6% 60px;
+
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(108,76,255,.17),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(168,85,247,.15),
+                    transparent 30%
+                ),
+                white;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 9px 15px;
+
+            border-radius: 30px;
+
+            background: #eeeaff;
+            color: #6546e8;
+
+            font-weight: 700;
+
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 65px);
+
+            line-height: 1.05;
+
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            color: #6c4cff;
+        }
+
+        .hero p {
+            max-width: 720px;
+
+            margin: auto;
+
+            color: #666;
+
+            font-size: 18px;
+
+            line-height: 1.7;
+        }
+
+        /* SEARCH */
+
+        .search-container {
+            max-width: 1000px;
+
+            margin: 35px auto 0;
+
+            background: white;
+
+            padding: 15px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 45px rgba(50,30,120,.12);
+
+            display: grid;
+
+            grid-template-columns:
+                1.4fr 1fr 1fr auto;
+
+            gap: 10px;
+        }
+
+        .search-container input,
+        .search-container select {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: 1px solid #e5e3ed;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            background: #fafafa;
+        }
+
+        .search-container input:focus,
+        .search-container select:focus {
+
+            border-color: #6c4cff;
+        }
+
+        .search-btn {
+
+            border: none;
+
+            padding: 0 25px;
+
+            border-radius: 12px;
+
+            background: #6c4cff;
+
+            color: white;
+
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        /* TABS */
+
+        .tabs-section {
+            padding: 35px 6% 0;
+
+            background: #f7f7fb;
+        }
+
+        .tabs {
+            max-width: 1000px;
+
+            margin: auto;
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+        }
+
+        .tab {
+
+            border: 1px solid #ddd;
+
+            background: white;
+
+            padding: 13px 22px;
+
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            font-weight: 700;
+
+            color: #555;
+        }
+
+        .tab.active {
+
+            background: #6c4cff;
+
+            color: white;
+
+            border-color: #6c4cff;
+        }
+
+        /* MAIN */
+
+        .main {
+            padding: 50px 6% 70px;
+        }
+
+        .content {
+            max-width: 1200px;
+
+            margin: auto;
+        }
+
+        .top-row {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            margin-bottom: 25px;
+        }
+
+        .top-row h2 {
+            font-size: 30px;
+        }
+
+        .count {
+            color: #777;
+        }
+
+        /* OPPORTUNITY GRID */
+
+        .opportunity-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+        /* CARD */
+
+        .opportunity-card {
+
+            background: white;
+
+            border: 1px solid #e9e7f0;
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            box-shadow:
+                0 7px 25px rgba(0,0,0,.03);
+
+            transition: .3s;
+        }
+
+        .opportunity-card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 18px 40px rgba(80,50,180,.12);
+        }
+
+        .company-row {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin-bottom: 18px;
+        }
+
+        .company-logo {
+
+            width: 52px;
+            height: 52px;
+
+            border-radius: 14px;
+
+            background: #eeeaff;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            font-size: 23px;
+        }
+
+        .company-name {
+
+            color: #777;
+
+            font-size: 14px;
+
+            margin-top: 4px;
+        }
+
+        .opportunity-card h3 {
+
+            font-size: 21px;
+
+            margin-bottom: 13px;
+        }
+
+        .tags {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-bottom: 18px;
+        }
+
+        .tag {
+
+            background: #f2f0ff;
+
+            color: #6044dc;
+
+            padding: 7px 10px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+        .description {
+
+            color: #666;
+
+            line-height: 1.6;
+
+            margin-bottom: 20px;
+        }
+
+        .card-footer {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 10px;
+        }
+
+        .apply-btn {
+
+            border: none;
+
+            padding: 11px 18px;
+
+            background: #17132f;
+
+            color: white;
+
+            border-radius: 9px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+        }
+
+        .save-btn {
+
+            border: 1px solid #ddd;
+
+            background: white;
+
+            padding: 10px 13px;
+
+            border-radius: 9px;
+
+            font-size: 18px;
+
+            cursor: pointer;
+        }
+
+        /* NO RESULTS */
+
+        .no-results {
+
+            display: none;
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            background: white;
+
+            border-radius: 20px;
+
+            color: #777;
+        }
+
+        .no-results h3 {
+
+            color: #17132f;
+
+            margin-bottom: 10px;
+        }
+
+        /* INFO SECTION */
+
+        .info-section {
+
+            padding: 70px 6%;
+
+            background: #17132f;
+
+            color: white;
+        }
+
+        .info-content {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            text-align: center;
+        }
+
+        .info-content h2 {
+
+            font-size: 38px;
+
+            margin-bottom: 15px;
+        }
+
+        .info-content > p {
+
+            color: #bbb;
+
+            max-width: 700px;
+
+            margin: auto;
+
+            line-height: 1.7;
+        }
+
+        .info-grid {
+
+            margin-top: 35px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 20px;
+        }
+
+        .info-card {
+
+            background:
+                rgba(255,255,255,.06);
+
+            border: 1px solid
+                rgba(255,255,255,.1);
+
+            padding: 25px;
+
+            border-radius: 18px;
+        }
+
+        .info-card .icon {
+
+            font-size: 30px;
+
+            margin-bottom: 12px;
+        }
+
+        .info-card p {
+
+            color: #bbb;
+
+            line-height: 1.5;
+
+            margin-top: 8px;
+        }
+
+        /* FOOTER */
+
+        footer {
+
+            background: #0f0b24;
+
+            color: white;
+
+            padding: 40px 6%;
+
+            text-align: center;
+        }
+
+        footer p {
+
+            color: #aaa;
+
+            margin-top: 10px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 850px) {
+
+            .search-container {
+
+                grid-template-columns: 1fr;
+            }
+
+            .search-btn {
+
+                padding: 15px;
+            }
+
+            .opportunity-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .info-grid {
+
+                grid-template-columns: 1fr;
+            }
+
+            .tabs {
+
+                flex-wrap: wrap;
+            }
+
+            .top-row {
+
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 8px;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            .hero {
+
+                padding: 55px 5%;
+            }
+
+            .main {
+
+                padding: 45px 5%;
+            }
+
+            .hero h1 {
+
+                font-size: 42px;
+            }
+
+            .card-footer {
+
+                align-items: flex-start;
+
+                flex-direction: column;
+            }
+
+            .apply-btn {
+
+                width: 100%;
+            }
+
+            .save-btn {
+
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <a href="../index.html" class="logo">
+            <span>N</span>
+            Nexora
+        </a>
+
+        <a href="career.html" class="back-btn">
+            ← Career Hub
+        </a>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="badge">
+            🎓 Internship & SIWES Hub
+        </div>
+
+        <h1>
+            Gain Experience.<br>
+            <span>Build Your Future.</span>
+        </h1>
+
+        <p>
+            Find internship and SIWES opportunities that can help you
+            gain practical experience and prepare for your career.
+        </p>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-container">
+
+            <input
+                type="text"
+                id="keyword"
+                placeholder="Search field, skill or opportunity"
+            >
+
+            <input
+                type="text"
+                id="location"
+                placeholder="Location"
+            >
+
+            <select id="type">
+
+                <option value="">
+                    Opportunity Type
+                </option>
+
+                <option value="Internship">
+                    Internship
+                </option>
+
+                <option value="SIWES">
+                    SIWES
+                </option>
+
+            </select>
+
+            <button
+                class="search-btn"
+                onclick="searchOpportunities()"
+            >
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- TABS -->
+
+    <section class="tabs-section">
+
+        <div class="tabs">
+
+            <button
+                class="tab active"
+                onclick="filterType('all', this)"
+            >
+                All Opportunities
+            </button>
+
+            <button
+                class="tab"
+                onclick="filterType('Internship', this)"
+            >
+                Internships
+            </button>
+
+            <button
+                class="tab"
+                onclick="filterType('SIWES', this)"
+            >
+                SIWES
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- OPPORTUNITIES -->
+
+    <main class="main">
+
+        <div class="content">
+
+            <div class="top-row">
+
+                <div>
+
+                    <h2>
+                        Opportunities
+                    </h2>
+
+                    <p
+                        class="count"
+                        id="count"
+                    >
+                        Explore available opportunities
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                class="opportunity-grid"
+                id="opportunityGrid"
+            >
+
+
+                <!-- OPPORTUNITY 1 -->
+
+                <div
+                    class="opportunity-card"
+                    data-title="mass communication media internship"
+                    data-location="uyo"
+                    data-type="Internship"
+                >
+
+                    <div class="company-row">
+
+                        <div class="company-logo">
+                            📻
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Example Media Organization
+                            </strong>
+
+                            <div class="company-name">
+                                Media & Communications
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <h3>
+                        Media & Communications Intern
+                    </h3>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            📍 Uyo
+                        </span>
+
+                        <span class="tag">
+                            🎓 Internship
+                        </span>
+
+                        <span class="tag">
+                            ⏳ 3 Months
+                        </span>
+
+                    </div>
+
+                    <p class="description">
+
+                        Gain practical experience in media, content
+                        creation, communication and basic newsroom work.
+
+                    </p>
+
+                    <div class="card-footer">
+
+                        <button
+                            class="apply-btn"
+                            onclick="showComingSoon()"
+                        >
+                            View Opportunity
+                        </button>
+
+                        <button
+                            class="save-btn"
+                            onclick="saveOpportunity(this)"
+                        >
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OPPORTUNITY 2 -->
+
+                <div
+                    class="opportunity-card"
+                    data-title="information technology siwes"
+                    data-location="uyo"
+                    data-type="SIWES"
+                >
+
+                    <div class="company-row">
+
+                        <div class="company-logo">
+                            💻
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Example Technology Company
+                            </strong>
+
+                            <div class="company-name">
+                                Information Technology
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <h3>
+                        IT SIWES Placement
+                    </h3>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            📍 Uyo
+                        </span>
+
+                        <span class="tag">
+                            🏢 SIWES
+                        </span>
+
+                        <span class="tag">
+                            ⏳ 4 Months
+                        </span>
+
+                    </div>
+
+                    <p class="description">
+
+                        Students can gain practical experience in
+                        technology, computer operations and digital tools.
+
+                    </p>
+
+                    <div class="card-footer">
+
+                        <button
+                            class="apply-btn"
+                            onclick="showComingSoon()"
+                        >
+                            View Opportunity
+                        </button>
+
+                        <button
+                            class="save-btn"
+                            onclick="saveOpportunity(this)"
+                        >
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OPPORTUNITY 3 -->
+
+                <div
+                    class="opportunity-card"
+                    data-title="business administration internship"
+                    data-location="lagos"
+                    data-type="Internship"
+                >
+
+                    <div class="company-row">
+
+                        <div class="company-logo">
+                            📊
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Example Business Organization
+                            </strong>
+
+                            <div class="company-name">
+                                Business & Administration
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <h3>
+                        Business Administration Intern
+                    </h3>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            📍 Lagos
+                        </span>
+
+                        <span class="tag">
+                            🎓 Internship
+                        </span>
+
+                        <span class="tag">
+                            ⏳ 6 Months
+                        </span>
+
+                    </div>
+
+                    <p class="description">
+
+                        Learn office administration, documentation,
+                        customer support and business operations.
+
+                    </p>
+
+                    <div class="card-footer">
+
+                        <button
+                            class="apply-btn"
+                            onclick="showComingSoon()"
+                        >
+                            View Opportunity
+                        </button>
+
+                        <button
+                            class="save-btn"
+                            onclick="saveOpportunity(this)"
+                        >
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OPPORTUNITY 4 -->
+
+                <div
+                    class="opportunity-card"
+                    data-title="computer science siwes software development"
+                    data-location="abuja"
+                    data-type="SIWES"
+                >
+
+                    <div class="company-row">
+
+                        <div class="company-logo">
+                            🖥️
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Example Software Company
+                            </strong>
+
+                            <div class="company-name">
+                                Software Development
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <h3>
+                        Software Development SIWES
+                    </h3>
+
+                    <div class="tags">
+
+                        <span class="tag">
+                            📍 Abuja
+                        </span>
+
+                        <span class="tag">
+                            🏢 SIWES
+                        </span>
+
+                        <span class="tag">
+                            ⏳ 6 Months
+                        </span>
+
+                    </div>
+
+                    <p class="description">
+
+                        Students can learn basic software development,
+                        web technologies and digital problem solving.
+
+                    </p>
+
+                    <div class="card-footer">
+
+                        <button
+                            class="apply-btn"
+                            onclick="showComingSoon()"
+                        >
+                            View Opportunity
+                        </button>
+
+                        <button
+                            class="save-btn"
+                            onclick="saveOpportunity(this)"
+                        >
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- NO RESULTS -->
+
+            <div
+                class="no-results"
+                id="noResults"
+            >
+
+                <h3>
+                    No matching opportunities
