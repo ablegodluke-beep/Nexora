@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nexora Jobs | Find Your Next Opportunity</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f6f5fb;
+            color: #17132f;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 15px 6%;
+            background: rgba(255,255,255,.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #eee;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background: linear-gradient(
+                135deg,
+                #6c4cff,
+                #a855f7
+            );
+
+            color: white;
+        }
+
+        .back-btn {
+            padding: 11px 18px;
+            background: #17132f;
+            color: white;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 75px 6% 60px;
+            text-align: center;
+
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(108,76,255,.18),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(168,85,247,.15),
+                    transparent 30%
+                ),
+                white;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 9px 15px;
+
+            border-radius: 30px;
+
+            background: #eeeaff;
+            color: #6546e8;
+
+            font-weight: 700;
+
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 65px);
+            line-height: 1.05;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 span {
+            color: #6c4cff;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: auto;
+
+            color: #666;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* SEARCH */
+
+        .search-container {
+            max-width: 1000px;
+            margin: 35px auto 0;
+
+            background: white;
+
+            padding: 15px;
+
+            border-radius: 20px;
+
+            box-shadow:
+                0 15px 45px rgba(50,30,120,.12);
+
+            display: grid;
+
+            grid-template-columns: 1.5fr 1fr 1fr auto;
+
+            gap: 10px;
+        }
+
+        .search-container input,
+        .search-container select {
+            width: 100%;
+
+            padding: 15px;
+
+            border: 1px solid #e5e3ed;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            font-size: 15px;
+
+            background: #fafafa;
+        }
+
+        .search-container input:focus,
+        .search-container select:focus {
+            border-color: #6c4cff;
+        }
+
+        .search-btn {
+            border: none;
+
+            padding: 0 25px;
+
+            border-radius: 12px;
+
+            background: #6c4cff;
+
+            color: white;
+
+            font-weight: 800;
+
+            cursor: pointer;
+        }
+
+        /* MAIN */
+
+        .main {
+            padding: 60px 6%;
+        }
+
+        .content {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .top-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-bottom: 25px;
+        }
+
+        .top-row h2 {
+            font-size: 30px;
+        }
+
+        .job-count {
+            color: #777;
+        }
+
+        /* JOB GRID */
+
+        .jobs-grid {
+            display: grid;
+
+            grid-template-columns: repeat(2, 1fr);
+
+            gap: 20px;
+        }
+
+        /* JOB CARD */
+
+        .job-card {
+            background: white;
+
+            border: 1px solid #e9e7f0;
+
+            border-radius: 20px;
+
+            padding: 25px;
+
+            transition: .3s;
+
+            box-shadow:
+                0 7px 25px rgba(0,0,0,.03);
+        }
+
+        .job-card:hover {
+            transform: translateY(-5px);
+
+            box-shadow:
+                0 18px 40px rgba(80,50,180,.12);
+        }
+
+        .company-row {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin-bottom: 18px;
+        }
+
+        .company-logo {
+            width: 50px;
+            height: 50px;
+
+            border-radius: 14px;
+
+            background: #eeeaff;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 22px;
+        }
+
+        .company-name {
+            color: #777;
+
+            font-size: 14px;
+        }
+
+        .job-card h3 {
+            font-size: 21px;
+
+            margin-bottom: 12px;
+        }
+
+        .job-info {
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 8px;
+
+            margin-bottom: 18px;
+        }
+
+        .job-tag {
+            background: #f2f0ff;
+
+            color: #6044dc;
+
+            padding: 7px 10px;
+
+            border-radius: 8px;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+        .job-description {
+            color: #666;
+
+            line-height: 1.6;
+
+            margin-bottom: 20px;
+        }
+
+        .job-footer {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+        }
+
+        .view-job {
+            padding: 11px 17px;
+
+            background: #17132f;
+
+            color: white;
+
+            border-radius: 9px;
+
+            font-weight: 700;
+
+            border: none;
+
+            cursor: pointer;
+        }
+
+        .save-job {
+            border: 1px solid #ddd;
+
+            background: white;
+
+            padding: 10px 13px;
+
+            border-radius: 9px;
+
+            cursor: pointer;
+
+            font-size: 18px;
+        }
+
+        /* NO RESULTS */
+
+        .no-results {
+            display: none;
+
+            text-align: center;
+
+            padding: 60px 20px;
+
+            background: white;
+
+            border-radius: 20px;
+
+            color: #777;
+        }
+
+        .no-results h3 {
+            color: #17132f;
+
+            margin-bottom: 10px;
+        }
+
+        /* CTA */
+
+        .cta {
+            padding: 70px 6%;
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6c4cff,
+                    #a855f7
+                );
+
+            color: white;
+        }
+
+        .cta h2 {
+            font-size: 38px;
+
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            max-width: 650px;
+
+            margin: auto;
+
+            line-height: 1.6;
+
+            opacity: .9;
+        }
+
+        /* FOOTER */
+
+        footer {
+            padding: 40px 6%;
+
+            background: #0f0b24;
+
+            color: white;
+
+            text-align: center;
+        }
+
+        footer p {
+            color: #aaa;
+
+            margin-top: 10px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 850px) {
+
+            .search-container {
+                grid-template-columns: 1fr;
+            }
+
+            .search-btn {
+                padding: 15px;
+            }
+
+            .jobs-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .top-row {
+                align-items: flex-start;
+
+                gap: 10px;
+
+                flex-direction: column;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .navbar {
+                padding: 12px 5%;
+            }
+
+            .hero {
+                padding: 55px 5%;
+            }
+
+            .main {
+                padding: 45px 5%;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .job-footer {
+                align-items: flex-start;
+
+                gap: 10px;
+
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <a href="../index.html" class="logo">
+            <span>N</span>
+            Nexora
+        </a>
+
+        <a href="career.html" class="back-btn">
+            ← Career Hub
+        </a>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="badge">
+            💼 Nexora Job Finder
+        </div>
+
+        <h1>
+            Find Your Next <span>Job</span>
+        </h1>
+
+        <p>
+            Search for career opportunities that match your skills,
+            location and preferred work style.
+        </p>
+
+
+        <!-- SEARCH -->
+
+        <div class="search-container">
+
+            <input
+                type="text"
+                id="keyword"
+                placeholder="Job title, skill or keyword"
+            >
+
+            <input
+                type="text"
+                id="location"
+                placeholder="Location"
+            >
+
+            <select id="jobType">
+
+                <option value="">Job Type</option>
+
+                <option value="Full-time">
+                    Full-time
+                </option>
+
+                <option value="Part-time">
+                    Part-time
+                </option>
+
+                <option value="Remote">
+                    Remote
+                </option>
+
+                <option value="Internship">
+                    Internship
+                </option>
+
+            </select>
+
+            <button
+                class="search-btn"
+                onclick="searchJobs()"
+            >
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- JOBS -->
+
+    <main class="main">
+
+        <div class="content">
+
+            <div class="top-row">
+
+                <div>
+
+                    <h2>Latest Opportunities</h2>
+
+                    <p class="job-count" id="jobCount">
+                        Explore available opportunities
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="jobs-grid" id="jobsGrid">
+
+
+                <!-- JOB 1 -->
+
+                <div
+                    class="job-card"
+                    data-title="customer service representative"
+                    data-location="uyo"
+                    data-type="Full-time"
+                >
+
+                    <div class="company-row">
+
+                        <div class="company-logo">
+                            💼
+                        </div>
+
+                        <div>
+                            <strong>
+                                Example Company
+                            </strong>
+
+                            <div class="company-name">
+                                Customer Service
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <h3>
+                        Customer Service Representative
+                    </h3>
+
+                    <div class="job-info">
+
+                        <span class="job-tag">
+                            📍 Uyo
+                        </span>
+
+                        <span class="job-tag">
+                            💼 Full-time
+                        </span>
+
+                        <span class="job-tag">
+                            💰 Salary Available
+                        </span>
+
+                    </div>
+
+                    <p class="job-description">
+
+                        Help customers, answer enquiries and provide
+                        professional customer support.
+
+                    </p>
+
+                    <div class="job-footer">
+
+                        <button
+                            class="view-job"
+                            onclick="showJobMessage()"
+                        >
+                            View Job
+                        </button>
+
+                        <button
+                            class="save-job"
+                            onclick="saveJob(this)"
+                        >
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- JOB 2 -->
+
+                <div
+                    class="job-card"
+                    data-title="social media assistant"
+                    data-location="lagos"
+                    data-type="Remote"
+                >
+
+                    <div class="company-row">
+
+                        <div class="company-logo">
+                            📱
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Example Company
+                            </strong>
+
+                            <div class="company-name">
+                                Digital Marketing
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <h3>
+                        Social Media Assistant
+                    </h3>
+
+                    <div class="job-info">
+
+                        <span class="job-tag">
+                            📍 Lagos / Remote
+                        </span>
+
+                        <span class="job-tag">
+                            💻 Remote
+                        </span>
+
+                    </div>
+
+                    <p class="job-description">
+
+                        Assist with social media content, research,
+                        posting and community engagement.
+
+                    </p>
+
+                    <div class="job-footer">
+
+                        <button
+                            class="view-job"
+                            onclick="showJobMessage()"
+                        >
+                            View Job
+                        </button>
+
+                        <button
+                            class="save-job"
+                            onclick="saveJob(this)"
+                        >
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- JOB 3 -->
+
+                <div
+                    class="job-card"
+                    data-title="marketing intern"
+                    data-location="abuja"
+                    data-type="Internship"
+                >
+
+                    <div class="company-row">
+
+                        <div class="company-logo">
+                            📊
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Example Organization
+                            </strong>
+
+                            <div class="company-name">
+                                Marketing
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <h3>
+                        Marketing Intern
+                    </h3>
+
+                    <div class="job-info">
+
+                        <span class="job-tag">
+                            📍 Abuja
+                        </span>
+
+                        <span class="job-tag">
+                            🎓 Internship
+                        </span>
+
+                    </div>
+
+                    <p class="job-description">
+
+                        Gain practical experience supporting marketing
+                        campaigns and research.
+
+                    </p>
+
+                    <div class="job-footer">
+
+                        <button
+                            class="view-job"
+                            onclick="showJobMessage()"
+                        >
+                            View Job
+                        </button>
+
+                        <button
+                            class="save-job"
+                            onclick="saveJob(this)"
+                        >
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- JOB 4 -->
+
+                <div
+                    class="job-card"
+                    data-title="administrative assistant"
+                    data-location="port harcourt"
+                    data-type="Full-time"
+                >
+
+                    <div class="company-row">
+
+                        <div class="company-logo">
+                            🏢
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Example Organization
+                            </strong>
+
+                            <div class="company-name">
+                                Administration
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <h3>
+                        Administrative Assistant
+                    </h3>
+
+                    <div class="job-info">
+
+                        <span class="job-tag">
+                            📍 Port Harcourt
+                        </span>
+
+                        <span class="job-tag">
+                            💼 Full-time
+                        </span>
+
+                    </div>
+
+                    <p class="job-description">
+
+                        Support office operations, organize documents
+                        and assist with daily administrative tasks.
+
+                    </p>
+
+                    <div class="job-footer">
+
+                        <button
+                            class="view-job"
+                            onclick="showJobMessage()"
+                        >
+                            View Job
+                        </button>
+
+                        <button
+                            class="save-job"
+                            onclick="saveJob(this)"
+                        >
+                            ♡
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- NO RESULTS -->
+
+            <div
+                class="no-results"
+                id="noResults"
+            >
+
+                <h3>
+                    No matching jobs found
+                </h3>
+
+                <p>
+                    Try another keyword, location or job type.
+                </p>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- CTA -->
+
+    <section class="cta">
+
+        <h2>
+            Looking for your next opportunity?
+        </h2>
+
+        <p>
+            Keep checking Nexora as we continue building a platform
+            where job seekers can discover real opportunities.
+        </p>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h2>Nexora</h2>
+
+        <p>
+            Your Next Opportunity Starts Here.
+        </p>
+
+        <p>
+            Contact: ablegodluke@gmail.com · 09017579718
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        function searchJobs() {
+
+            const keyword =
+                document
+                .getElementById("keyword")
+                .value
+                .toLowerCase()
+                .trim();
+
+            const location =
+                document
+                .getElementById("location")
+                .value
+                .toLowerCase()
+                .trim();
+
+            const jobType =
+                document
+                .getElementById("jobType")
+                .value;
+
+            const jobs =
+                document.querySelectorAll(".job-card");
+
+            const noResults =
+                document.getElementById("noResults");
+
+            const jobCount =
+                document.getElementById("jobCount");
+
+            let found = 0;
+
+            jobs.forEach(function(job) {
+
+                const title =
+                    job.dataset.title.toLowerCase();
+
+                const jobLocation =
+                    job.dataset.location.toLowerCase();
+
+                const type =
+                    job.dataset.type;
+
+                const keywordMatch =
+                    !keyword ||
+                    title.includes(keyword);
+
+                const locationMatch =
+                    !location ||
+                    jobLocation.includes(location);
+
+                const typeMatch =
+                    !jobType ||
+                    type === jobType;
+
+                if (
+                    keywordMatch &&
+                    locationMatch &&
+                    typeMatch
+                ) {
+
+                    job.style.display = "block";
+
+                    found++;
+
+                } else {
+
+                    job.style.display = "none";
+
+                }
+
+            });
+
+
+            if (found === 0) {
+
+                noResults.style.display = "block";
+
+                jobCount.textContent =
+                    "No matching opportunities";
+
+            } else {
+
+                noResults.style.display = "none";
+
+                jobCount.textContent =
+                    found + " opportunity" +
+                    (found > 1 ? "ies" : "y") +
+                    " found";
+
+            }
+
+        }
+
+
+        function saveJob(button) {
+
+            if (button.textContent === "♡") {
+
+                button.textContent = "♥";
+
+                button.style.color = "#6c4cff";
+
+            } else {
+
+                button.textContent = "♡";
+
+                button.style.color = "";
+
+            }
+
+        }
+
+
+        function showJobMessage() {
+
+            alert(
+                "Job details and application will be available when this opportunity is connected to a verified employer."
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>

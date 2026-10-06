@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nexora AI CV Builder</title>
+
+    <!-- Paystack -->
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f5fb;
+            color: #17132f;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            background: #17132f;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: white;
+        }
+
+        .back-link {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            opacity: .9;
+        }
+
+        .back-link:hover {
+            opacity: 1;
+        }
+
+        /* HERO */
+
+        .hero {
+            background:
+                radial-gradient(circle at top right, rgba(99,102,241,.45), transparent 35%),
+                linear-gradient(135deg, #17132f, #35217a, #5b21b6);
+
+            color: white;
+            padding: 70px 7% 80px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255,255,255,.12);
+            border: 1px solid rgba(255,255,255,.2);
+            padding: 9px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 6vw, 64px);
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            max-width: 720px;
+            margin: auto;
+            line-height: 1.7;
+            color: #e9e7ff;
+            font-size: 17px;
+        }
+
+        /* STEPS */
+
+        .steps {
+            max-width: 950px;
+            margin: -35px auto 45px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 5;
+        }
+
+        .steps-box {
+            background: white;
+            border-radius: 20px;
+            padding: 22px;
+            box-shadow: 0 15px 45px rgba(23,19,47,.12);
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: #777;
+        }
+
+        .step-number {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #ecebff;
+            color: #5b21b6;
+        }
+
+        .step.active {
+            color: #17132f;
+        }
+
+        .step.active .step-number {
+            background: #5b21b6;
+            color: white;
+        }
+
+        /* MAIN */
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 0 20px 80px;
+        }
+
+        .builder-grid {
+            display: grid;
+            grid-template-columns: 1.35fr .75fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 22px;
+            padding: 32px;
+            box-shadow: 0 12px 40px rgba(23,19,47,.08);
+        }
+
+        .card h2 {
+            margin-bottom: 8px;
+            font-size: 28px;
+        }
+
+        .card-intro {
+            color: #777;
+            margin-bottom: 28px;
+            line-height: 1.6;
+        }
+
+        /* FORM */
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 14px;
+            font-family: inherit;
+            font-size: 15px;
+            outline: none;
+            transition: .2s;
+            background: #fafbff;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #6d28d9;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(109,40,217,.08);
+        }
+
+        textarea {
+            min-height: 110px;
+            resize: vertical;
+        }
+
+        .btn {
+            width: 100%;
+            border: none;
+            border-radius: 13px;
+            padding: 16px;
+            font-size: 16px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #5b21b6, #7c3aed);
+            color: white;
+            box-shadow: 0 10px 25px rgba(91,33,182,.25);
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* BENEFITS */
+
+        .benefits {
+            background: linear-gradient(145deg, #17132f, #29195c);
+            color: white;
+            position: sticky;
+            top: 25px;
+        }
+
+        .benefits h2 {
+            color: white;
+        }
+
+        .benefits p {
+            color: #d7d2ef;
+        }
+
+        .benefit {
+            display: flex;
+            gap: 14px;
+            margin: 24px 0;
+        }
+
+        .benefit-icon {
+            min-width: 42px;
+            height: 42px;
+            background: rgba(255,255,255,.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .benefit h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .benefit p {
+            font-size: 13px;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        /* RESULT */
+
+        #resultSection {
+            display: none;
+            margin-top: 50px;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .result-header h2 {
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .result-header p {
+            color: #777;
+        }
+
+        .cv-wrapper {
+            max-width: 850px;
+            margin: auto;
+            position: relative;
+        }
+
+        .cv-paper {
+            background: white;
+            min-height: 900px;
+            padding: 55px;
+            border-radius: 8px;
+            box-shadow: 0 15px 50px rgba(0,0,0,.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cv-content {
+            filter: blur(4px);
+            user-select: none;
+        }
+
+        .cv-name {
+            font-size: 35px;
+            font-weight: 900;
+            margin-bottom: 8px;
+        }
+
+        .cv-contact {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .cv-section {
+            margin-top: 28px;
+        }
+
+        .cv-section h3 {
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #5b21b6;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+            margin-bottom: 12px;
+        }
+
+        .cv-section p {
+            color: #444;
+            line-height: 1.7;
+            white-space: pre-line;
+        }
+
+        /* PREMIUM OVERLAY */
+
+        .premium-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(23,19,47,.72);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 25px;
+        }
+
+        .premium-box {
+            background: white;
+            width: 100%;
+            max-width: 480px;
+            border-radius: 24px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 25px 80px rgba(0,0,0,.3);
+        }
+
+        .premium-icon {
+            width: 65px;
+            height: 65px;
+            margin: 0 auto 15px;
+            border-radius: 20px;
+            background: #eee8ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+
+        .premium-label {
+            color: #6d28d9;
+            font-weight: 800;
+            font-size: 13px;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .premium-box h2 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .premium-box > p {
+            color: #777;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 42px;
+            font-weight: 900;
+            margin: 15px 0 4px;
+        }
+
+        .one-time {
+            color: #888;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .features {
+            text-align: left;
+            margin: 20px 0;
+        }
+
+        .features div {
+            padding: 8px 0;
+            font-size: 14px;
+        }
+
+        .features span {
+            color: #16a34a;
+            font-weight: 900;
+            margin-right: 8px;
+        }
+
+        .payment-btn {
+            background: linear-gradient(135deg, #5b21b6, #7c3aed);
+            color: white;
+            margin-top: 8px;
+        }
+
+        .edit-btn {
+            background: #f1f0f7;
+            color: #17132f;
+            margin-top: 10px;
+        }
+
+        .secure-text {
+            font-size: 12px;
+            color: #888;
+            margin-top: 13px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #17132f;
+            color: white;
+            text-align: center;
+            padding: 35px 20px;
+        }
+
+        footer p {
+            color: #c9c5dd;
+            font-size: 14px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 850px) {
+
+            .builder-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits {
+                position: static;
+            }
+
+            .cv-paper {
+                padding: 30px;
+            }
+
+        }
+
+        @media (max-width: 550px) {
+
+            .navbar {
+                padding: 16px 5%;
+            }
+
+            .hero {
+                padding: 55px 5% 70px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .card {
+                padding: 23px;
+            }
+
+            .premium-box {
+                padding: 25px 20px;
+            }
+
+            .price {
+                font-size: 35px;
+            }
+
+            .cv-paper {
+                padding: 22px;
+            }
+
+            .cv-name {
+                font-size: 28px;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <div class="logo">
+            Nexora
+        </div>
+
+        <a href="career.html" class="back-link">
+            ← Career Hub
+        </a>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="badge">
+            ✨ NEXORA CAREER TOOLS
+        </div>
+
+        <h1>
+            Build a CV That Gets You Noticed
+        </h1>
+
+        <p>
+            Create a professional CV designed to present your skills,
+            education and experience clearly to employers.
+        </p>
+
+    </section>
+
+
+    <!-- STEPS -->
+
+    <div class="steps">
+
+        <div class="steps-box">
+
+            <div class="step active">
+                <div class="step-number">1</div>
+                Your Information
+            </div>
+
+            <div class="step">
+                <div class="step-number">2</div>
+                Professional CV
+            </div>
+
+            <div class="step">
+                <div class="step-number">3</div>
+                Download
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- BUILDER -->
+
+    <main class="container">
+
+        <div class="builder-grid">
+
+            <!-- FORM -->
+
+            <section class="card">
+
+                <h2>
+                    Tell Us About Yourself
+                </h2>
+
+                <p class="card-intro">
+                    Fill in your information below. Make sure your
+                    email and phone number are correct.
+                </p>
+
+
+                <div class="form-group">
+
+                    <label for="fullName">
+                        Full Name *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fullName"
+                        placeholder="e.g. AbleGod Luke"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        Email *
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="e.g. yourname@gmail.com"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone *
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        placeholder="e.g. 08012345678"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="location">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="location"
+                        placeholder="e.g. Uyo, Akwa Ibom"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="objective">
+                        Career Objective
+                    </label>
+
+                    <textarea
+                        id="objective"
+                        placeholder="Tell employers what you want to achieve professionally..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="education">
+                        Education
+                    </label>
+
+                    <textarea
+                        id="education"
+                        placeholder="School, course, qualification, year..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="experience">
+                        Work Experience
+                    </label>
+
+                    <textarea
+                        id="experience"
+                        placeholder="Company, position, responsibilities..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="skills">
+                        Skills
+                    </label>
+
+                    <textarea
+                        id="skills"
+                        placeholder="e.g. Communication, Microsoft Office, Social Media..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="certifications">
+                        Certifications
+                    </label>
+
+                    <textarea
+                        id="certifications"
+                        placeholder="List your certificates..."
+                    ></textarea>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="languages">
+                        Languages
+                    </label>
+
+                    <textarea
+                        id="languages"
+                        placeholder="e.g. English, Ibibio..."
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    class="btn primary-btn"
+                    type="button"
+                    onclick="generateCV()"
+                >
+                    ✨ Create My Professional CV
+                </button>
+
+            </section>
+
+
+            <!-- BENEFITS -->
+
+            <aside class="card benefits">
+
+                <h2>
+                    Why Use Nexora?
+                </h2>
+
+                <p class="card-intro">
+                    Your CV should make a strong first impression.
+                </p>
+
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        ✨
+                    </div>
+
+                    <div>
+                        <h3>
+                            Professional Structure
+                        </h3>
+
+                        <p>
+                            Present your information in a clean,
+                            employer-friendly format.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        🎯
+                    </div>
+
+                    <div>
+                        <h3>
+                            Career Focused
+                        </h3>
+
+                        <p>
+                            Organize your experience and skills
+                            around your career goals.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        📄
+                    </div>
+
+                    <div>
+                        <h3>
+                            Job Ready
+                        </h3>
+
+                        <p>
+                            Create a CV you can use when applying
+                            for jobs and opportunities.
+                        </p>
+                    </div>
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        🚀
+                    </div>
+
+                    <div>
+                        <h3>
+                            Built for Opportunities
+                        </h3>
+
+                        <p>
+                            Make it easier for employers to
+                            understand what you can offer.
+                        </p>
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <section id="resultSection">
+
+            <div class="result-header">
+
+                <h2>
+                    Your CV Is Ready
+                </h2>
+
+                <p>
+                    Review the preview below and unlock the professional version.
+                </p>
+
+            </div>
+
+
+            <div class="cv-wrapper">
+
+                <div class="cv-paper">
+
+                    <div class="cv-content">
+
+                        <div class="cv-name" id="previewName">
+                            Your Name
+                        </div>
+
+                        <div class="cv-contact">
+
+                            <div id="previewEmail">
+                                Email
+                            </div>
+
+                            <div id="previewPhone">
+                                Phone
+                            </div>
+
+                            <div id="previewLocation">
+                                Location
+                            </div>
+
+                        </div>
+
+
+                        <div class="cv-section">
+
+                            <h3>
+                                Career Objective
+                            </h3>
+
+                            <p id="previewObjective">
+                                Career objective
+                            </p>
+
+                        </div>
+
+
+                        <div class="cv-section">
+
+                            <h3>
+                                Education
+                            </h3>
+
+                            <p id="previewEducation">
+                                Education
+                            </p>
+
+                        </div>
+
+
+                        <div class="cv-section">
+
+                            <h3>
+                                Work Experience
+                            </h3>
+
+                            <p id="previewExperience">
+                                Work experience
+                            </p>
+
+                        </div>
+
+
+                        <div class="cv-section">
+
+                            <h3>
+                                Skills
+                            </h3>
+
+                            <p id="previewSkills">
+                                Skills
+                            </p>
+
+                        </div>
+
+
+                        <div class="cv-section">
+
+                            <h3>
+                                Certifications
+                            </h3>
+
+                            <p id="previewCertifications">
+                                Certifications
+                            </p>
+
+                        </div>
+
+
+                        <div class="cv-section">
+
+                            <h3>
+                                Languages
+                            </h3>
+
+                            <p id="previewLanguages">
+                                Languages
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PREMIUM LOCK -->
+
+                    <div class="premium-overlay">
+
+                        <div class="premium-box">
+
+                            <div class="premium-icon">
+                                🔒
+                            </div>
+
+                            <div class="premium-label">
+                                NEXORA PREMIUM
+                            </div>
+
+                            <h2>
+                                Unlock Your Professional CV
+                            </h2>
+
+                            <p>
+                                Your CV has been prepared.
+                                Unlock the professional version
+                                when you're ready to use it for applications.
+                            </p>
+
+
+                            <div class="price">
+                                ₦2,000
+                            </div>
+
+                            <div class="one-time">
+                                One-time payment
+                            </div>
+
+
+                            <div class="features">
+
+                                <div>
+                                    <span>✓</span>
+                                    AI-powered CV improvement
+                                </div>
+
+                                <div>
+                                    <span>✓</span>
+                                    Professional career profile
+                                </div>
+
+                                <div>
+                                    <span>✓</span>
+                                    ATS-friendly structure
+                                </div>
+
+                                <div>
+                                    <span>✓</span>
+                                    Improved work experience wording
+                                </div>
+
+                                <div>
+                                    <span>✓</span>
+                                    Professional PDF download
+                                </div>
+
+                                <div>
+                                    <span>✓</span>
+                                    Ready for job applications
+                                </div>
+
+                            </div>
+
+
+                            <button
+                                class="btn payment-btn"
+                                type="button"
+                                onclick="startPayment()"
+                            >
+                                🔓 Unlock My CV — ₦2,000
+                            </button>
+
+
+                            <button
+                                class="btn edit-btn"
+                                type="button"
+                                onclick="editCV()"
+                            >
+                                ✏️ Edit My Information
+                            </button>
+
+
+                            <div class="secure-text">
+                                🔐 Secure payment powered by Paystack
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <p>
+            © 2026 Nexora. Your Next Opportunity Starts Here.
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        /* =========================
+           GENERATE CV
+        ========================= */
+
+        function generateCV() {
+
+            const fullName =
+                document.getElementById("fullName").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const phone =
+                document.getElementById("phone").value.trim();
+
+            const location =
+                document.getElementById("location").value.trim();
+
+            const objective =
+                document.getElementById("objective").value.trim();
+
+            const education =
+                document.getElementById("education").value.trim();
+
+            const experience =
+                document.getElementById("experience").value.trim();
+
+            const skills =
+                document.getElementById("skills").value.trim();
+
+            const certifications =
+                document.getElementById("certifications").value.trim();
+
+            const languages =
+                document.getElementById("languages").value.trim();
+
+
+            if (!fullName) {
+
+                alert("Please enter your full name.");
+
+                document.getElementById("fullName").focus();
+
+                return;
+            }
+
+
+            if (!email) {
+
+                alert("Please enter your email address.");
+
+                document.getElementById("email").focus();
+
+                return;
+            }
+
+
+            if (!phone) {
+
+                alert("Please enter your phone number.");
+
+                document.getElementById("phone").focus();
+
+                return;
+            }
+
+
+            document.getElementById("previewName").textContent =
+                fullName;
+
+            document.getElementById("previewEmail").textContent =
+                email;
+
+            document.getElementById("previewPhone").textContent =
+                phone;
+
+            document.getElementById("previewLocation").textContent =
+                location || "Location not provided";
+
+            document.getElementById("previewObjective").textContent =
+                objective || "Not provided";
+
+            document.getElementById("previewEducation").textContent =
+                education || "Not provided";
+
+            document.getElementById("previewExperience").textContent =
+                experience || "Not provided";
+
+            document.getElementById("previewSkills").textContent =
+                skills || "Not provided";
+
+            document.getElementById("previewCertifications").textContent =
+                certifications || "Not provided";
+
+            document.getElementById("previewLanguages").textContent =
+                languages || "Not provided";
+
+
+            document.getElementById("resultSection").style.display =
+                "block";
+
+
+            document.getElementById("resultSection").scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+
+        }
+
+
+        /* =========================
+           EDIT CV
+        ========================= */
+
+        function editCV() {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+
+        /* =========================
+           PAYSTACK PAYMENT
+        ========================= */
+
+        function startPayment() {
+
+            const fullName =
+                document.getElementById("fullName").value.trim();
+
+            const email =
+                document.getElementById("email").value.trim();
+
+            const phone =
+                document.getElementById("phone").value.trim();
+
+
+            if (!fullName) {
+
+                alert("Please enter your full name first.");
+
+                return;
+            }
+
+
+            if (!email) {
+
+                alert("Please enter your email address first.");
+
+                return;
+            }
+
+
+            if (!phone) {
+
+                alert("Please enter your phone number first.");
+
+                return;
+            }
+
+
+            if (typeof PaystackPop === "undefined") {
+
+                alert(
+                    "Paystack could not load. Please check your internet connection and try again."
+                );
+
+                return;
+            }
+
+
+            const paystack =
+                new PaystackPop();
+
+
+            paystack.newTransaction({
+
+                key:
+                    "pk_test_6337a8d184ff7cbbb57e3f0ed90e0d420cced37f",
+
+                email:
+                    email,
+
+                amount:
+                    200000,
+
+                currency:
+                    "NGN",
+
+                firstName:
+                    fullName,
+
+                phone:
+                    phone,
+
+                metadata: {
+
+                    product:
+                        "Nexora Professional CV",
+
+                    customer_name:
+                        fullName
+
+                },
+
+
+                onLoad: function(response) {
+
+                    console.log(
+                        "Paystack loaded:",
+                        response
+                    );
+
+                },
+
+
+                onSuccess: function(transaction) {
+
+                    console.log(
+                        "Payment successful:",
+                        transaction
+                    );
+
+
+                    alert(
+                        "Payment completed successfully!\n\n" +
+                        "Reference: " +
+                        transaction.reference +
+                        "\n\n" +
+                        "We will verify your payment before unlocking your professional CV."
+                    );
+
+                },
+
+
+                onCancel: function() {
+
+                    alert(
+                        "Payment was cancelled."
+                    );
+
+                },
+
+
+                onError: function(error) {
+
+                    console.error(
+                        "Paystack error:",
+                        error
+                    );
+
+
+                    alert(
+                        "There was a problem opening the payment window.\n\n" +
+                        (error.message || "Please try again.")
+                    );
+
+                }
+
+            });
+
+        }
+
+    </script>
+
+</body>
+</html>

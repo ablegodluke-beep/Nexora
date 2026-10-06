@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nexora Career Hub</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f7f7fb;
+            color: #17132f;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid #eee;
+            padding: 15px 6%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .logo span {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #6c4cff, #a855f7);
+            color: white;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            color: #555;
+        }
+
+        .nav-links a:hover {
+            color: #6c4cff;
+        }
+
+        .home-btn {
+            padding: 11px 18px;
+            border-radius: 10px;
+            background: #17132f;
+            color: white !important;
+        }
+
+        /* HERO */
+
+        .hero {
+            padding: 80px 6%;
+            background:
+                radial-gradient(circle at 10% 20%, rgba(108,76,255,.18), transparent 30%),
+                radial-gradient(circle at 90% 80%, rgba(168,85,247,.15), transparent 30%),
+                white;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 9px 15px;
+            border-radius: 30px;
+            background: #eeeaff;
+            color: #6546e8;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 72px);
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #6c4cff;
+        }
+
+        .hero p {
+            max-width: 700px;
+            margin: auto;
+            color: #666;
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        /* SEARCH */
+
+        .search-box {
+            max-width: 800px;
+            margin: 35px auto 0;
+            background: white;
+            padding: 10px;
+            border-radius: 18px;
+            box-shadow: 0 15px 40px rgba(30,20,80,.12);
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 15px;
+            font-size: 16px;
+        }
+
+        .search-box button {
+            border: none;
+            background: #6c4cff;
+            color: white;
+            padding: 0 25px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* SECTION */
+
+        .section {
+            padding: 75px 6%;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-heading h2 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .section-heading p {
+            color: #777;
+        }
+
+        /* CAREER CARDS */
+
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .career-card {
+            background: white;
+            padding: 30px;
+            border-radius: 22px;
+            border: 1px solid #eee;
+            transition: .3s;
+            box-shadow: 0 8px 25px rgba(0,0,0,.04);
+        }
+
+        .career-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 45px rgba(80,50,180,.12);
+        }
+
+        .icon {
+            width: 55px;
+            height: 55px;
+            border-radius: 16px;
+            background: #eeeaff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .career-card h3 {
+            margin-bottom: 12px;
+            font-size: 21px;
+        }
+
+        .career-card p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-btn {
+            display: inline-block;
+            padding: 11px 17px;
+            background: #17132f;
+            color: white;
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        /* FEATURED */
+
+        .featured {
+            background: #17132f;
+            color: white;
+        }
+
+        .featured .section-heading p {
+            color: #bbb;
+        }
+
+        .opportunity-grid {
+            max-width: 1200px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .opportunity {
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.1);
+            border-radius: 20px;
+            padding: 25px;
+        }
+
+        .opportunity small {
+            color: #b9aaff;
+            font-weight: 700;
+        }
+
+        .opportunity h3 {
+            margin: 12px 0;
+        }
+
+        .opportunity p {
+            color: #bbb;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .opportunity button {
+            border: none;
+            padding: 10px 16px;
+            border-radius: 9px;
+            background: #6c4cff;
+            color: white;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        /* CV CTA */
+
+        .cv-section {
+            padding: 80px 6%;
+            background: linear-gradient(135deg, #6c4cff, #a855f7);
+            color: white;
+            text-align: center;
+        }
+
+        .cv-section h2 {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .cv-section p {
+            max-width: 650px;
+            margin: 0 auto 25px;
+            line-height: 1.6;
+            opacity: .9;
+        }
+
+        .cv-btn {
+            display: inline-block;
+            background: white;
+            color: #5d3de0;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 800;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #0f0b24;
+            color: white;
+            padding: 45px 6%;
+            text-align: center;
+        }
+
+        footer p {
+            color: #aaa;
+            margin-top: 10px;
+        }
+
+        /* MOBILE */
+
+        @media (max-width: 850px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .career-grid,
+            .opportunity-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 60px 5%;
+            }
+
+            .search-box {
+                flex-direction: column;
+            }
+
+            .search-box button {
+                padding: 14px;
+            }
+
+            .section {
+                padding: 60px 5%;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar">
+
+        <a href="../index.html" class="logo">
+            <span>N</span>
+            Nexora
+        </a>
+
+        <nav class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="career.html">Career</a>
+            <a href="../index.html#students">Students</a>
+            <a href="../index.html#ai-tools">AI Tools</a>
+            <a href="../index.html#store">Store</a>
+            <a href="../index.html#business">Business</a>
+        </nav>
+
+        <a href="../index.html" class="home-btn">
+            Back Home
+        </a>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="badge">
+            🚀 Nexora Career Hub
+        </div>
+
+        <h1>
+            Find Your Next <span>Opportunity</span>
+        </h1>
+
+        <p>
+            Discover jobs, internships, SIWES opportunities and career tools
+            designed to help you move forward.
+        </p>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="careerSearch"
+                placeholder="Search jobs, internships, skills..."
+            >
+
+            <button onclick="searchCareer()">
+                Search
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- CAREER SERVICES -->
+
+    <section class="section">
+
+        <div class="section-heading">
+
+            <h2>Career Services</h2>
+
+            <p>
+                Everything you need to prepare yourself for your next opportunity.
+            </p>
+
+        </div>
+
+
+        <div class="career-grid">
+
+            <div class="career-card">
+
+                <div class="icon">💼</div>
+
+                <h3>Find Jobs</h3>
+
+                <p>
+                    Discover employment opportunities and find jobs that match
+                    your skills and interests.
+                </p>
+
+            <a href="jobs.html" class="card-btn">
+    Explore Jobs
+            </a>
+
+            </div>
+
+
+            <div class="career-card">
+
+                <div class="icon">🎓</div>
+
+                <h3>Internships</h3>
+
+                <p>
+                    Find internship and industrial training opportunities that
+                    can help you gain real experience.
+                </p>
+
+              <a href="internships.html" class="card-btn">
+    Find Internships
+              </a>
+
+            </div>
+
+
+            <div class="career-card">
+
+                <div class="icon">🏢</div>
+
+                <h3>SIWES Opportunities</h3>
+
+                <p>
+                    Connect students with organizations where they can gain
+                    practical workplace experience.
+                </p>
+
+                <a href="internships.html" class="card-btn">
+    Explore SIWES
+                </a>
+
+            </div>
+
+
+            <div class="career-card">
+
+                <div class="icon">📄</div>
+
+                <h3>AI CV Builder</h3>
+
+                <p>
+                    Create a professional CV that presents your skills,
+                    education and experience clearly.
+                </p>
+
+                <a href="./cv-builder.html" class="card-btn">
+                    Build My CV
+                </>
+
+            </div>
+
+
+            <div class="career-card">
+
+                <div class="icon">🎤</div>
+
+                <h3>Interview Coach</h3>
+
+                <p>
+                    Practice interview questions and improve your confidence
+                    before meeting an employer.
+                </p>
+
+                <a href="#" class="card-btn">
+                    Practice Interview
+                </a>
+
+            </div>
+
+
+            <div class="career-card">
+
+                <div class="icon">🌐</div>
+
+                <h3>Career Profile</h3>
+
+                <p>
+                    Learn how to present yourself professionally online and
+                    attract better opportunities.
+                </p>
+
+                <a href="#" class="card-btn">
+                    Build Profile
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- OPPORTUNITIES -->
+
+    <section class="section featured">
+
+        <div class="section-heading">
+
+            <h2>Explore Opportunities</h2>
+
+            <p>
+                Start with an opportunity that matches where you are right now.
+            </p>
+
+        </div>
+
+
+        <div class="opportunity-grid">
+
+            <div class="opportunity">
+
+                <small>FOR JOB SEEKERS</small>
+
+                <h3>Entry-Level Jobs</h3>
+
+                <p>
+                    Explore opportunities for graduates and people beginning
+                    their professional careers.
+                </p>
+
+                <button onclick="showComingSoon()">
+                    Explore
+                </button>
+
+            </div>
+
+
+            <div class="opportunity">
+
+                <small>FOR STUDENTS</small>
+
+                <h3>Student Opportunities</h3>
+
+                <p>
+                    Find internships, SIWES placements and student-friendly
+                    opportunities.
+                </p>
+
+                <button onclick="showComingSoon()">
+                    Explore
+                </button>
+
+            </div>
+
+
+            <div class="opportunity">
+
+                <small>REMOTE</small>
+
+                <h3>Remote Opportunities</h3>
+
+                <p>
+                    Discover opportunities that allow you to work with people
+                    and companies from different locations.
+                </p>
+
+                <button onclick="showComingSoon()">
+                    Explore
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CV CTA -->
+
+    <section class="cv-section">
+
+        <h2>Is Your CV Ready?</h2>
+
+        <p>
+            A good CV can make the difference between being overlooked and
+            getting contacted by an employer.
+        </p>
+
+        <a href="cv-builder.html" class="cv-btn">
+            Create My Professional CV
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h2>Nexora</h2>
+
+        <p>
+            Your Next Opportunity Starts Here.
+        </p>
+
+        <p>
+            Contact: ablegodluke@gmail.com · 09017579718
+        </p>
+
+    </footer>
+
+
+    <script>
+
+        function searchCareer() {
+
+            const search =
+                document.getElementById("careerSearch").value.trim();
+
+            if (!search) {
+                alert("Please enter what you are looking for.");
+                return;
+            }
+
+            alert(
+                "Nexora is searching for opportunities related to: " + search
+            );
+        }
+
+
+        function showComingSoon() {
+
+            alert(
+                "This opportunity section is coming soon. Nexora is building it for you."
+            );
+
+        }
+
+    </script>
+
+</body>
+</html>
