@@ -1108,380 +1108,443 @@
 
     <script>
 
-        /* =========================
-           GENERATE CV
-        ========================= */
+    /* =========================
+       GENERATE CV
+    ========================= */
 
-        function generateCV() {
+    function generateCV() {
 
-            const fullName =
-                document.getElementById("fullName").value.trim();
+        const fullName =
+            document.getElementById("fullName").value.trim();
 
-            const email =
-                document.getElementById("email").value.trim();
+        const email =
+            document.getElementById("email").value.trim();
 
-            const phone =
-                document.getElementById("phone").value.trim();
+        const phone =
+            document.getElementById("phone").value.trim();
 
-            const location =
-                document.getElementById("location").value.trim();
+        const location =
+            document.getElementById("location").value.trim();
 
-            const objective =
-                document.getElementById("objective").value.trim();
+        const objective =
+            document.getElementById("objective").value.trim();
 
-            const education =
-                document.getElementById("education").value.trim();
+        const education =
+            document.getElementById("education").value.trim();
 
-            const experience =
-                document.getElementById("experience").value.trim();
+        const experience =
+            document.getElementById("experience").value.trim();
 
-            const skills =
-                document.getElementById("skills").value.trim();
+        const skills =
+            document.getElementById("skills").value.trim();
 
-            const certifications =
-                document.getElementById("certifications").value.trim();
+        const certifications =
+            document.getElementById("certifications").value.trim();
 
-            const languages =
-                document.getElementById("languages").value.trim();
-
-
-            if (!fullName) {
-
-                alert("Please enter your full name.");
-
-                document.getElementById("fullName").focus();
-
-                return;
-            }
+        const languages =
+            document.getElementById("languages").value.trim();
 
 
-            if (!email) {
+        if (!fullName) {
+            alert("Please enter your full name.");
+            document.getElementById("fullName").focus();
+            return;
+        }
 
-                alert("Please enter your email address.");
+        if (!email) {
+            alert("Please enter your email address.");
+            document.getElementById("email").focus();
+            return;
+        }
 
-                document.getElementById("email").focus();
-
-                return;
-            }
-
-
-            if (!phone) {
-
-                alert("Please enter your phone number.");
-
-                document.getElementById("phone").focus();
-
-                return;
-            }
-
-
-            document.getElementById("previewName").textContent =
-                fullName;
-
-            document.getElementById("previewEmail").textContent =
-                email;
-
-            document.getElementById("previewPhone").textContent =
-                phone;
-
-            document.getElementById("previewLocation").textContent =
-                location || "Location not provided";
-
-            document.getElementById("previewObjective").textContent =
-                objective || "Not provided";
-
-            document.getElementById("previewEducation").textContent =
-                education || "Not provided";
-
-            document.getElementById("previewExperience").textContent =
-                experience || "Not provided";
-
-            document.getElementById("previewSkills").textContent =
-                skills || "Not provided";
-
-            document.getElementById("previewCertifications").textContent =
-                certifications || "Not provided";
-
-            document.getElementById("previewLanguages").textContent =
-                languages || "Not provided";
-
-
-            document.getElementById("resultSection").style.display =
-                "block";
-
-
-            document.getElementById("resultSection").scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-            });
-
+        if (!phone) {
+            alert("Please enter your phone number.");
+            document.getElementById("phone").focus();
+            return;
         }
 
 
-        /* =========================
-           EDIT CV
-        ========================= */
+        document.getElementById("previewName").textContent =
+            fullName;
 
-        function editCV() {
+        document.getElementById("previewEmail").textContent =
+            email;
 
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-            function downloadCV() {
+        document.getElementById("previewPhone").textContent =
+            phone;
 
-    const cvContent = document.querySelector(".cv-content");
+        document.getElementById("previewLocation").textContent =
+            location || "Location not provided";
 
-    if (!cvContent) {
-        alert("Your CV could not be found.");
-        return;
+        document.getElementById("previewObjective").textContent =
+            objective || "Not provided";
+
+        document.getElementById("previewEducation").textContent =
+            education || "Not provided";
+
+        document.getElementById("previewExperience").textContent =
+            experience || "Not provided";
+
+        document.getElementById("previewSkills").textContent =
+            skills || "Not provided";
+
+        document.getElementById("previewCertifications").textContent =
+            certifications || "Not provided";
+
+        document.getElementById("previewLanguages").textContent =
+            languages || "Not provided";
+
+
+        document.getElementById("resultSection").style.display =
+            "block";
+
+
+        document.getElementById("resultSection").scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+        });
+
     }
 
-    const fullName =
-        document.getElementById("fullName").value.trim();
 
-    const fileName =
-        (fullName || "Nexora-CV").replace(/\s+/g, "-");
+    /* =========================
+       EDIT CV
+    ========================= */
 
-    const options = {
-        margin: 0.4,
-        filename: fileName + "-CV.pdf",
-        image: {
-            type: "jpeg",
-            quality: 0.98
-        },
-        html2canvas: {
-            scale: 2,
-            useCORS: true
-        },
-        jsPDF: {
-            unit: "in",
-            format: "a4",
-            orientation: "portrait"
-        }
-    };
+    function editCV() {
 
-    html2pdf()
-        .set(options)
-        .from(cvContent)
-        .save();
-            }
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
 
-        }
-        function downloadCV() {
-
-    const cvContent = document.querySelector(".cv-content");
-
-    if (!cvContent) {
-        alert("Your CV could not be found.");
-        return;
     }
 
-    window.print();
+
+    /* =========================
+       DOWNLOAD CV AS PDF
+    ========================= */
+
+    function downloadCV() {
+
+        const cvContent =
+            document.querySelector(".cv-content");
+
+        if (!cvContent) {
+            alert("Your CV could not be found.");
+            return;
         }
 
 
-        /* =========================
-           PAYSTACK PAYMENT
-        ========================= */
+        if (typeof html2pdf === "undefined") {
 
-        function startPayment() {
+            alert(
+                "The PDF system could not load. " +
+                "Please check your internet connection and try again."
+            );
 
-            const fullName =
-                document.getElementById("fullName").value.trim();
-
-            const email =
-                document.getElementById("email").value.trim();
-
-            const phone =
-                document.getElementById("phone").value.trim();
+            return;
+        }
 
 
-            if (!fullName) {
+        const fullName =
+            document.getElementById("fullName").value.trim();
 
-                alert("Please enter your full name first.");
 
-                return;
+        const fileName =
+            (fullName || "Nexora-CV")
+            .replace(/[^a-z0-9]/gi, "-")
+            .replace(/-+/g, "-");
+
+
+        const options = {
+
+            margin: 0.4,
+
+            filename:
+                fileName + "-CV.pdf",
+
+            image: {
+                type: "jpeg",
+                quality: 0.98
+            },
+
+            html2canvas: {
+                scale: 2,
+                useCORS: true
+            },
+
+            jsPDF: {
+                unit: "in",
+                format: "a4",
+                orientation: "portrait"
             }
 
-
-            if (!email) {
-
-                alert("Please enter your email address first.");
-
-                return;
-            }
+        };
 
 
-            if (!phone) {
+        html2pdf()
+            .set(options)
+            .from(cvContent)
+            .save();
 
-                alert("Please enter your phone number first.");
-
-                return;
-            }
+    }
 
 
-            if (typeof PaystackPop === "undefined") {
+    /* =========================
+       PAYSTACK PAYMENT
+    ========================= */
 
-                alert(
-                    "Paystack could not load. Please check your internet connection and try again."
+    function startPayment() {
+
+        const fullName =
+            document.getElementById("fullName").value.trim();
+
+        const email =
+            document.getElementById("email").value.trim();
+
+        const phone =
+            document.getElementById("phone").value.trim();
+
+
+        if (!fullName) {
+
+            alert(
+                "Please enter your full name first."
+            );
+
+            return;
+        }
+
+
+        if (!email) {
+
+            alert(
+                "Please enter your email address first."
+            );
+
+            return;
+        }
+
+
+        if (!phone) {
+
+            alert(
+                "Please enter your phone number first."
+            );
+
+            return;
+        }
+
+
+        if (typeof PaystackPop === "undefined") {
+
+            alert(
+                "Paystack could not load. Please check your internet connection and try again."
+            );
+
+            return;
+        }
+
+
+        const paystack =
+            new PaystackPop();
+
+
+        paystack.newTransaction({
+
+            key:
+                "pk_test_6337a8d184ff7cbbb57e3f0ed90e0d420cced37f",
+
+            email:
+                email,
+
+            amount:
+                200000,
+
+            currency:
+                "NGN",
+
+            firstName:
+                fullName,
+
+            phone:
+                phone,
+
+            metadata: {
+
+                product:
+                    "Nexora Professional CV",
+
+                customer_name:
+                    fullName
+
+            },
+
+
+            onLoad: function(response) {
+
+                console.log(
+                    "Paystack loaded:",
+                    response
                 );
 
-                return;
-            }
+            },
 
 
-            const paystack =
-                new PaystackPop();
+            onSuccess: async function(transaction) {
+
+                alert(
+                    "Payment received. Verifying your payment..."
+                );
 
 
-            paystack.newTransaction({
+                try {
 
-                key:
-                    "pk_test_6337a8d184ff7cbbb57e3f0ed90e0d420cced37f",
+                    const response =
+                        await fetch(
+                            "/api/verify-payment",
+                            {
+                                method: "POST",
 
-                email:
-                    email,
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
 
-                amount:
-                    200000,
-
-                currency:
-                    "NGN",
-
-                firstName:
-                    fullName,
-
-                phone:
-                    phone,
-
-                metadata: {
-
-                    product:
-                        "Nexora Professional CV",
-
-                    customer_name:
-                        fullName
-
-                },
+                                body:
+                                    JSON.stringify({
+                                        reference:
+                                            transaction.reference
+                                    })
+                            }
+                        );
 
 
-                onLoad: function(response) {
-
-                    console.log(
-                        "Paystack loaded:",
-                        response
-                    );
-
-                },
+                    const result =
+                        await response.json();
 
 
-                onSuccess: async function(transaction) {
+                    if (result.success) {
 
-    alert("Payment received. Verifying your payment...");
-
-    try {
-
-        const response = await fetch(
-            "/api/verify-payment",
-            {
-                method: "POST",
-
-                headers: {
-                    "Content-Type": "application/json"
-                },
-
-                body: JSON.stringify({
-                    reference: transaction.reference
-                })
-            }
-        );
-
-        const result = await response.json();
-
-        if (result.success) {
-
-            alert(
-                "Payment verified successfully!\n\n" +
-                "Your professional CV is now unlocked."
-            );
-
-            const overlay =
-    document.querySelector(".premium-overlay");
-
-const cvContent =
-    document.querySelector(".cv-content");
-
-if (overlay) {
-    overlay.style.display = "none";
-}
-
-if (cvContent) {
-    cvContent.style.filter = "none";
-    cvContent.style.userSelect = "auto";
-        }
-const downloadButton =
-    document.getElementById("downloadCVButton");
-
-if (downloadButton) {
-    downloadButton.style.display = "inline-block";
-        }
-        } else {
-
-            alert(
-                "We could not verify this payment.\n\n" +
-                "Please contact Nexora support with your payment reference:\n" +
-                transaction.reference
-            );
-
-        }
-
-    } catch (error) {
-
-        console.error(
-            "Verification error:",
-            error
-        );
-
-        alert(
-            "Payment was received, but verification could not be completed right now.\n\n" +
-            "Please contact Nexora support with your payment reference:\n" +
-            transaction.reference
-        );
-
-    }
-
-},
-
-                onCancel: function() {
-
-                    alert(
-                        "Payment was cancelled."
-                    );
-
-                },
+                        alert(
+                            "Payment verified successfully!\n\n" +
+                            "Your professional CV is now unlocked."
+                        );
 
 
-                onError: function(error) {
+                        /* UNLOCK CV */
+
+                        const overlay =
+                            document.querySelector(
+                                ".premium-overlay"
+                            );
+
+
+                        const cvContent =
+                            document.querySelector(
+                                ".cv-content"
+                            );
+
+
+                        if (overlay) {
+
+                            overlay.style.display =
+                                "none";
+
+                        }
+
+
+                        if (cvContent) {
+
+                            cvContent.style.filter =
+                                "none";
+
+                            cvContent.style.userSelect =
+                                "auto";
+
+                        }
+
+
+                        /* SHOW DOWNLOAD BUTTON */
+
+                        const downloadButton =
+                            document.getElementById(
+                                "downloadCVButton"
+                            );
+
+
+                        if (downloadButton) {
+
+                            downloadButton.style.display =
+                                "block";
+
+                        }
+
+
+                    } else {
+
+                        alert(
+                            "We could not verify this payment.\n\n" +
+                            "Please contact Nexora support with your payment reference:\n" +
+                            transaction.reference
+                        );
+
+                    }
+
+
+                } catch (error) {
 
                     console.error(
-                        "Paystack error:",
+                        "Verification error:",
                         error
                     );
 
 
                     alert(
-                        "There was a problem opening the payment window.\n\n" +
-                        (error.message || "Please try again.")
+                        "Payment was received, but verification could not be completed right now.\n\n" +
+                        "Please contact Nexora support with your payment reference:\n" +
+                        transaction.reference
                     );
 
                 }
 
-            });
+            },
 
-        }
 
-    </script>
+            onCancel: function() {
+
+                alert(
+                    "Payment was cancelled."
+                );
+
+            },
+
+
+            onError: function(error) {
+
+                console.error(
+                    "Paystack error:",
+                    error
+                );
+
+
+                alert(
+                    "There was a problem opening the payment window.\n\n" +
+                    (
+                        error.message ||
+                        "Please try again."
+                    )
+                );
+
+            }
+
+        });
+
+    }
+
+        </script>
+      
 
 </body>
 </html>
