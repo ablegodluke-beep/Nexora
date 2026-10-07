@@ -1477,8 +1477,15 @@
 
                         if (downloadButton) {
 
-                            downloadButton.style.display =
-                                "block";
+    downloadButton.style.display = "block";
+    downloadButton.style.visibility = "visible";
+    downloadButton.style.opacity = "1";
+
+    alert("DOWNLOAD BUTTON FOUND");
+
+} else {
+
+    alert("DOWNLOAD BUTTON NOT FOUND");
 
                         }
 
