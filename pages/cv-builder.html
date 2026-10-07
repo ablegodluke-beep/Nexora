@@ -1,544 +1,548 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Nexora AI CV Builder</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nexora CV Builder</title>
 
     <!-- Paystack -->
     <script src="https://js.paystack.co/v2/inline.js"></script>
+
+    <!-- PDF Generator -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
 
     <style>
 
+        /* =========================
+           BASIC RESET
+        ========================= */
+
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
         }
 
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #f3f5fb;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f5f7ff,
+                    #eef2ff,
+                    #ffffff
+                );
+
             color: #17132f;
+
+            line-height: 1.6;
         }
 
-        /* NAVBAR */
+        button,
+        input,
+        textarea {
+            font-family: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           NAVBAR
+        ========================= */
 
         .navbar {
-            background: #17132f;
-            color: white;
-            padding: 18px 7%;
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1000;
+
+            background:
+                rgba(23, 19, 47, 0.97);
+
+            backdrop-filter:
+                blur(15px);
+
+            padding:
+                16px 6%;
+
             display: flex;
-            justify-content: space-between;
+
             align-items: center;
+
+            justify-content: space-between;
+
+            box-shadow:
+                0 5px 25px
+                rgba(0,0,0,0.15);
         }
+
 
         .logo {
-            font-size: 25px;
-            font-weight: 800;
-            color: white;
-        }
+            color: #ffffff;
 
-        .back-link {
-            color: white;
             text-decoration: none;
+
+            font-size: 25px;
+
+            font-weight: 900;
+        }
+
+
+        .logo span {
+            color: #7c5cff;
+        }
+
+
+        .back-btn {
+            color: #ffffff;
+
+            text-decoration: none;
+
+            padding:
+                10px 17px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.25);
+
+            border-radius: 10px;
+
             font-size: 14px;
-            opacity: .9;
+
+            font-weight: 700;
         }
 
-        .back-link:hover {
-            opacity: 1;
+
+        .back-btn:hover {
+            background: #7c5cff;
+
+            border-color:
+                #7c5cff;
         }
 
-        /* HERO */
+
+        /* =========================
+           HERO
+        ========================= */
 
         .hero {
-            background:
-                radial-gradient(circle at top right, rgba(99,102,241,.45), transparent 35%),
-                linear-gradient(135deg, #17132f, #35217a, #5b21b6);
-
-            color: white;
-            padding: 70px 7% 80px;
             text-align: center;
+
+            padding:
+                65px 20px 45px;
+
+            background:
+                radial-gradient(
+                    circle at top,
+                    rgba(124,92,255,0.18),
+                    transparent 55%
+                );
         }
+
 
         .badge {
             display: inline-block;
-            background: rgba(255,255,255,.12);
-            border: 1px solid rgba(255,255,255,.2);
-            padding: 9px 18px;
-            border-radius: 30px;
-            font-size: 13px;
-            margin-bottom: 20px;
+
+            background:
+                #ebe7ff;
+
+            color:
+                #6347dc;
+
+            padding:
+                8px 15px;
+
+            border-radius:
+                50px;
+
+            font-size:
+                13px;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                18px;
         }
+
 
         .hero h1 {
-            font-size: clamp(38px, 6vw, 64px);
-            line-height: 1.05;
-            margin-bottom: 20px;
+            font-size:
+                clamp(32px, 6vw, 58px);
+
+            line-height:
+                1.05;
+
+            margin-bottom:
+                18px;
         }
+
+
+        .hero h1 span {
+            background:
+                linear-gradient(
+                    90deg,
+                    #6c4cff,
+                    #b14cff
+                );
+
+            -webkit-background-clip:
+                text;
+
+            -webkit-text-fill-color:
+                transparent;
+        }
+
 
         .hero p {
-            max-width: 720px;
-            margin: auto;
-            line-height: 1.7;
-            color: #e9e7ff;
-            font-size: 17px;
+            max-width:
+                720px;
+
+            margin:
+                auto;
+
+            color:
+                #666;
+
+            font-size:
+                17px;
         }
 
-        /* STEPS */
+
+        /* =========================
+           STEPS
+        ========================= */
 
         .steps {
-            max-width: 950px;
-            margin: -35px auto 45px;
-            padding: 0 20px;
-            position: relative;
-            z-index: 5;
+            max-width:
+                1000px;
+
+            margin:
+                0 auto 45px;
+
+            display:
+                grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap:
+                18px;
+
+            padding:
+                0 20px;
         }
 
-        .steps-box {
-            background: white;
-            border-radius: 20px;
-            padding: 22px;
-            box-shadow: 0 15px 45px rgba(23,19,47,.12);
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-        }
 
         .step {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            color: #777;
+            background:
+                #ffffff;
+
+            padding:
+                22px;
+
+            border-radius:
+                18px;
+
+            text-align:
+                center;
+
+            box-shadow:
+                0 12px 35px
+                rgba(30,25,80,0.08);
         }
+
 
         .step-number {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #ecebff;
-            color: #5b21b6;
+            width:
+                42px;
+
+            height:
+                42px;
+
+            margin:
+                0 auto 12px;
+
+            border-radius:
+                50%;
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6c4cff,
+                    #a64cff
+                );
+
+            color:
+                #ffffff;
+
+            font-weight:
+                900;
         }
 
-        .step.active {
-            color: #17132f;
+
+        .step h3 {
+            font-size:
+                16px;
+
+            margin-bottom:
+                5px;
         }
 
-        .step.active .step-number {
-            background: #5b21b6;
-            color: white;
+
+        .step p {
+            color:
+                #777;
+
+            font-size:
+                13px;
         }
 
-        /* MAIN */
+
+        /* =========================
+           MAIN CONTAINER
+        ========================= */
 
         .container {
-            max-width: 1150px;
-            margin: auto;
-            padding: 0 20px 80px;
+            max-width:
+                1200px;
+
+            margin:
+                0 auto 70px;
+
+            padding:
+                0 20px;
         }
+
 
         .builder-grid {
-            display: grid;
-            grid-template-columns: 1.35fr .75fr;
-            gap: 30px;
+            display:
+                grid;
+
+            grid-template-columns:
+                minmax(0, 1.1fr)
+                minmax(0, 0.9fr);
+
+            gap:
+                30px;
+
+            align-items:
+                start;
         }
 
-        .card {
-            background: white;
-            border-radius: 22px;
-            padding: 32px;
-            box-shadow: 0 12px 40px rgba(23,19,47,.08);
+
+        /* =========================
+           FORM CARD
+        ========================= */
+
+        .form-card,
+        .benefits-card {
+            background:
+                #ffffff;
+
+            border-radius:
+                24px;
+
+            padding:
+                30px;
+
+            box-shadow:
+                0 18px 50px
+                rgba(30,25,80,0.09);
         }
 
-        .card h2 {
-            margin-bottom: 8px;
-            font-size: 28px;
+
+        .card-title {
+            margin-bottom:
+                25px;
         }
 
-        .card-intro {
-            color: #777;
-            margin-bottom: 28px;
-            line-height: 1.6;
+
+        .card-title h2 {
+            font-size:
+                25px;
+
+            margin-bottom:
+                6px;
         }
 
-        /* FORM */
+
+        .card-title p {
+            color:
+                #777;
+
+            font-size:
+                14px;
+        }
+
 
         .form-group {
-            margin-bottom: 19px;
+            margin-bottom:
+                18px;
         }
 
+
         .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            font-weight: 700;
+            display:
+                block;
+
+            font-size:
+                14px;
+
+            font-weight:
+                800;
+
+            margin-bottom:
+                7px;
         }
+
 
         .form-group input,
         .form-group textarea {
-            width: 100%;
-            border: 1px solid #ddd;
-            border-radius: 12px;
-            padding: 14px;
-            font-family: inherit;
-            font-size: 15px;
-            outline: none;
-            transition: .2s;
-            background: #fafbff;
+            width:
+                100%;
+
+            border:
+                1px solid #ddd;
+
+            background:
+                #fafaff;
+
+            border-radius:
+                11px;
+
+            padding:
+                13px 14px;
+
+            outline:
+                none;
+
+            font-size:
+                14px;
+
+            transition:
+                0.25s;
         }
+
 
         .form-group input:focus,
         .form-group textarea:focus {
-            border-color: #6d28d9;
-            background: white;
-            box-shadow: 0 0 0 3px rgba(109,40,217,.08);
+            border-color:
+                #7658ff;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(118,88,255,0.10);
         }
 
-        textarea {
-            min-height: 110px;
-            resize: vertical;
+
+        .form-group textarea {
+            min-height:
+                100px;
+
+            resize:
+                vertical;
         }
 
-        .btn {
-            width: 100%;
-            border: none;
-            border-radius: 13px;
-            padding: 16px;
-            font-size: 16px;
-            font-weight: 800;
-            cursor: pointer;
-            transition: .2s;
+
+        .two-fields {
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                15px;
         }
 
-        .primary-btn {
-            background: linear-gradient(135deg, #5b21b6, #7c3aed);
-            color: white;
-            box-shadow: 0 10px 25px rgba(91,33,182,.25);
+
+        .generate-btn {
+            width:
+                100%;
+
+            border:
+                none;
+
+            padding:
+                16px 20px;
+
+            border-radius:
+                13px;
+
+            color:
+                #ffffff;
+
+            font-size:
+                16px;
+
+            font-weight:
+                900;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #6548ff,
+                    #a548ff
+                );
+
+            box-shadow:
+                0 12px 25px
+                rgba(101,72,255,0.25);
+
+            margin-top:
+                8px;
+
+            transition:
+                0.3s;
         }
 
-        .primary-btn:hover {
-            transform: translateY(-2px);
-        }
 
-        /* BENEFITS */
+        .generate-btn:hover {
+            transform:
+                translateY(-2px);
 
-        .benefits {
-            background: linear-gradient(145deg, #17132f, #29195c);
-            color: white;
-            position: sticky;
-            top: 25px;
-        }
-
-        .benefits h2 {
-            color: white;
-        }
-
-        .benefits p {
-            color: #d7d2ef;
-        }
-
-        .benefit {
-            display: flex;
-            gap: 14px;
-            margin: 24px 0;
-        }
-
-        .benefit-icon {
-            min-width: 42px;
-            height: 42px;
-            background: rgba(255,255,255,.1);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        .benefit h3 {
-            font-size: 16px;
-            margin-bottom: 5px;
-        }
-
-        .benefit p {
-            font-size: 13px;
-            line-height: 1.5;
-            margin: 0;
-        }
-
-        /* RESULT */
-
-        #resultSection {
-            display: none;
-            margin-top: 50px;
-        }
-
-        .result-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .result-header h2 {
-            font-size: 34px;
-            margin-bottom: 8px;
-        }
-
-        .result-header p {
-            color: #777;
-        }
-
-        .cv-wrapper {
-            max-width: 850px;
-            margin: auto;
-            position: relative;
-        }
-
-        .cv-paper {
-            background: white;
-            min-height: 900px;
-            padding: 55px;
-            border-radius: 8px;
-            box-shadow: 0 15px 50px rgba(0,0,0,.15);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cv-content {
-            filter: blur(4px);
-            user-select: none;
-        }
-
-        .cv-name {
-            font-size: 35px;
-            font-weight: 900;
-            margin-bottom: 8px;
-        }
-
-        .cv-contact {
-            color: #666;
-            margin-bottom: 25px;
-            line-height: 1.6;
-        }
-
-        .cv-section {
-            margin-top: 28px;
-        }
-
-        .cv-section h3 {
-            font-size: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #5b21b6;
-            border-bottom: 2px solid #eee;
-            padding-bottom: 8px;
-            margin-bottom: 12px;
-        }
-
-        .cv-section p {
-            color: #444;
-            line-height: 1.7;
-            white-space: pre-line;
-        }
-
-        /* PREMIUM OVERLAY */
-
-        .premium-overlay {
-            position: absolute;
-            inset: 0;
-            background: rgba(23,19,47,.72);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 25px;
-        }
-
-        .premium-box {
-            background: white;
-            width: 100%;
-            max-width: 480px;
-            border-radius: 24px;
-            padding: 35px;
-            text-align: center;
-            box-shadow: 0 25px 80px rgba(0,0,0,.3);
-        }
-
-        .premium-icon {
-            width: 65px;
-            height: 65px;
-            margin: 0 auto 15px;
-            border-radius: 20px;
-            background: #eee8ff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-        }
-
-        .premium-label {
-            color: #6d28d9;
-            font-weight: 800;
-            font-size: 13px;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
-        }
-
-        .premium-box h2 {
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        .premium-box > p {
-            color: #777;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .price {
-            font-size: 42px;
-            font-weight: 900;
-            margin: 15px 0 4px;
-        }
-
-        .one-time {
-            color: #888;
-            font-size: 13px;
-            margin-bottom: 20px;
-        }
-
-        .features {
-            text-align: left;
-            margin: 20px 0;
-        }
-
-        .features div {
-            padding: 8px 0;
-            font-size: 14px;
-        }
-
-        .features span {
-            color: #16a34a;
-            font-weight: 900;
-            margin-right: 8px;
-        }
-
-        .payment-btn {
-            background: linear-gradient(135deg, #5b21b6, #7c3aed);
-            color: white;
-            margin-top: 8px;
-        }
-
-        .edit-btn {
-            background: #f1f0f7;
-            color: #17132f;
-            margin-top: 10px;
-        }
-
-        .secure-text {
-            font-size: 12px;
-            color: #888;
-            margin-top: 13px;
-        }
-
-        /* FOOTER */
-
-        footer {
-            background: #17132f;
-            color: white;
-            text-align: center;
-            padding: 35px 20px;
-        }
-
-        footer p {
-            color: #c9c5dd;
-            font-size: 14px;
-        }
-
-        /* RESPONSIVE */
-
-        @media (max-width: 850px) {
-
-            .builder-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .benefits {
-                position: static;
-            }
-
-            .cv-paper {
-                padding: 30px;
-            }
-
-        }
-
-        @media (max-width: 550px) {
-
-            .navbar {
-                padding: 16px 5%;
-            }
-
-            .hero {
-                padding: 55px 5% 70px;
-            }
-
-            .hero h1 {
-                font-size: 40px;
-            }
-
-            .card {
-                padding: 23px;
-            }
-
-            .premium-box {
-                padding: 25px 20px;
-            }
-
-            .price {
-                font-size: 35px;
-            }
-
-            .cv-paper {
-                padding: 22px;
-            }
-
-            .cv-name {
-                font-size: 28px;
-            }
-
+            box-shadow:
+                0 16px 30px
+                rgba(101,72,255,0.35);
         }
 
     </style>
+
 </head>
+
 
 <body>
 
-    <!-- NAVBAR -->
 
-    <header class="navbar">
-
-        <div class="logo">
-            Nexora
-        </div>
-
-        <a href="career.html" class="back-link">
-            ← Career Hub
-        </a>
-
-    </header>
-
-
-    <!-- HERO -->
+        <!-- =========================
+         HERO SECTION
+    ========================= -->
 
     <section class="hero">
 
@@ -547,67 +551,117 @@
         </div>
 
         <h1>
-            Build a CV That Gets You Noticed
+            Build a CV That
+            <span>Gets You Noticed</span>
         </h1>
 
         <p>
-            Create a professional CV designed to present your skills,
-            education and experience clearly to employers.
+            Create a clean, modern and professional CV
+            designed to help you present your skills,
+            education and experience with confidence.
         </p>
 
     </section>
 
 
-    <!-- STEPS -->
+    <!-- =========================
+         THREE STEPS
+    ========================= -->
 
-    <div class="steps">
+    <section class="steps">
 
-        <div class="steps-box">
+        <div class="step">
 
-            <div class="step active">
-                <div class="step-number">1</div>
-                Your Information
+            <div class="step-number">
+                1
             </div>
 
-            <div class="step">
-                <div class="step-number">2</div>
-                Professional CV
-            </div>
+            <h3>
+                Enter Your Information
+            </h3>
 
-            <div class="step">
-                <div class="step-number">3</div>
-                Download
-            </div>
+            <p>
+                Fill in your personal,
+                education and career details.
+            </p>
 
         </div>
 
-    </div>
+
+        <div class="step">
+
+            <div class="step-number">
+                2
+            </div>
+
+            <h3>
+                Preview Your CV
+            </h3>
+
+            <p>
+                See your professional CV
+                before unlocking it.
+            </p>
+
+        </div>
 
 
-    <!-- BUILDER -->
+        <div class="step">
+
+            <div class="step-number">
+                3
+            </div>
+
+            <h3>
+                Unlock & Download
+            </h3>
+
+            <p>
+                Pay once and download
+                your finished CV.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         MAIN BUILDER
+    ========================= -->
 
     <main class="container">
 
         <div class="builder-grid">
 
-            <!-- FORM -->
 
-            <section class="card">
+            <!-- =========================
+                 CV FORM
+            ========================= -->
 
-                <h2>
-                    Tell Us About Yourself
-                </h2>
+            <section class="form-card">
 
-                <p class="card-intro">
-                    Fill in your information below. Make sure your
-                    email and phone number are correct.
-                </p>
+                <div class="card-title">
 
+                    <h2>
+                        Your Information
+                    </h2>
+
+                    <p>
+                        Enter your details below.
+                        You can edit them before generating
+                        your professional CV.
+                    </p>
+
+                </div>
+
+
+                <!-- FULL NAME -->
 
                 <div class="form-group">
 
                     <label for="fullName">
-                        Full Name *
+                        Full Name
                     </label>
 
                     <input
@@ -619,35 +673,43 @@
                 </div>
 
 
-                <div class="form-group">
+                <!-- EMAIL + PHONE -->
 
-                    <label for="email">
-                        Email *
-                    </label>
+                <div class="two-fields">
 
-                    <input
-                        type="email"
-                        id="email"
-                        placeholder="e.g. yourname@gmail.com"
-                    >
+                    <div class="form-group">
+
+                        <label for="email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="email"
+                            placeholder="you@example.com"
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            placeholder="+234..."
+                        >
+
+                    </div>
 
                 </div>
 
 
-                <div class="form-group">
-
-                    <label for="phone">
-                        Phone *
-                    </label>
-
-                    <input
-                        type="tel"
-                        id="phone"
-                        placeholder="e.g. 08012345678"
-                    >
-
-                </div>
-
+                <!-- LOCATION -->
 
                 <div class="form-group">
 
@@ -658,25 +720,29 @@
                     <input
                         type="text"
                         id="location"
-                        placeholder="e.g. Uyo, Akwa Ibom"
+                        placeholder="e.g. Uyo, Akwa Ibom, Nigeria"
                     >
 
                 </div>
 
 
+                <!-- PROFESSIONAL SUMMARY -->
+
                 <div class="form-group">
 
                     <label for="objective">
-                        Career Objective
+                        Professional Summary / Career Objective
                     </label>
 
                     <textarea
                         id="objective"
-                        placeholder="Tell employers what you want to achieve professionally..."
+                        placeholder="Briefly tell employers who you are, your strengths and the type of opportunity you are looking for."
                     ></textarea>
 
                 </div>
 
+
+                <!-- EDUCATION -->
 
                 <div class="form-group">
 
@@ -686,11 +752,16 @@
 
                     <textarea
                         id="education"
-                        placeholder="School, course, qualification, year..."
+                        placeholder="Example:
+Akwa Ibom State University
+B.Sc. Mass Communication
+2022 - 2026"
                     ></textarea>
 
                 </div>
 
+
+                <!-- EXPERIENCE -->
 
                 <div class="form-group">
 
@@ -700,11 +771,18 @@
 
                     <textarea
                         id="experience"
-                        placeholder="Company, position, responsibilities..."
+                        placeholder="Example:
+News Intern — Inspiration FM
+2025
+• Assisted with news writing and editing
+• Recorded interviews
+• Worked with the newsroom team"
                     ></textarea>
 
                 </div>
 
+
+                <!-- SKILLS -->
 
                 <div class="form-group">
 
@@ -714,25 +792,35 @@
 
                     <textarea
                         id="skills"
-                        placeholder="e.g. Communication, Microsoft Office, Social Media..."
+                        placeholder="Example:
+Communication
+Teamwork
+News Writing
+Audio Editing
+Social Media
+Microsoft Office"
                     ></textarea>
 
                 </div>
 
+
+                <!-- CERTIFICATIONS -->
 
                 <div class="form-group">
 
                     <label for="certifications">
-                        Certifications
+                        Certifications / Training
                     </label>
 
                     <textarea
                         id="certifications"
-                        placeholder="List your certificates..."
+                        placeholder="Add your certificates, courses or professional training."
                     ></textarea>
 
                 </div>
 
+
+                <!-- LANGUAGES -->
 
                 <div class="form-group">
 
@@ -742,14 +830,35 @@
 
                     <textarea
                         id="languages"
-                        placeholder="e.g. English, Ibibio..."
+                        placeholder="English
+Ibibio
+Pidgin"
                     ></textarea>
 
                 </div>
 
 
+                <!-- REFERENCES -->
+
+                <div class="form-group">
+
+                    <label for="references">
+                        References
+                    </label>
+
+                    <textarea
+                        id="references"
+                        placeholder="Optional. You can write:
+Available upon request"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- GENERATE BUTTON -->
+
                 <button
-                    class="btn primary-btn"
+                    class="generate-btn"
                     type="button"
                     onclick="generateCV()"
                 >
@@ -759,16 +868,20 @@
             </section>
 
 
-            <!-- BENEFITS -->
+            <!-- =========================
+                 BENEFITS
+            ========================= -->
 
-            <aside class="card benefits">
+            <aside class="benefits-card">
 
                 <h2>
                     Why Use Nexora?
                 </h2>
 
-                <p class="card-intro">
-                    Your CV should make a strong first impression.
+                <p>
+                    Turn your information into a clean,
+                    professional CV you can use when
+                    applying for opportunities.
                 </p>
 
 
@@ -779,34 +892,16 @@
                     </div>
 
                     <div>
+
                         <h3>
-                            Professional Structure
+                            Professional Design
                         </h3>
 
                         <p>
-                            Present your information in a clean,
-                            employer-friendly format.
+                            A clean layout with strong
+                            visual hierarchy.
                         </p>
-                    </div>
 
-                </div>
-
-
-                <div class="benefit">
-
-                    <div class="benefit-icon">
-                        🎯
-                    </div>
-
-                    <div>
-                        <h3>
-                            Career Focused
-                        </h3>
-
-                        <p>
-                            Organize your experience and skills
-                            around your career goals.
-                        </p>
                     </div>
 
                 </div>
@@ -819,14 +914,16 @@
                     </div>
 
                     <div>
+
                         <h3>
-                            Job Ready
+                            PDF Download
                         </h3>
 
                         <p>
-                            Create a CV you can use when applying
-                            for jobs and opportunities.
+                            Download your finished CV
+                            as a professional PDF.
                         </p>
+
                     </div>
 
                 </div>
@@ -835,278 +932,900 @@
                 <div class="benefit">
 
                     <div class="benefit-icon">
-                        🚀
+                        📱
                     </div>
 
                     <div>
+
                         <h3>
-                            Built for Opportunities
+                            Phone Friendly
                         </h3>
 
                         <p>
-                            Make it easier for employers to
-                            understand what you can offer.
+                            Build your CV directly
+                            from your phone.
                         </p>
+
                     </div>
+
+                </div>
+
+
+                <div class="benefit">
+
+                    <div class="benefit-icon">
+                        🔒
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            One-Time Payment
+                        </h3>
+
+                        <p>
+                            Pay once to unlock your
+                            completed CV.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PRICE -->
+
+                <div class="price-box">
+
+                    <small>
+                        PROFESSIONAL CV
+                    </small>
+
+                    <div class="price">
+                        ₦2,000
+                    </div>
+
+                    <small>
+                        One-time payment
+                    </small>
 
                 </div>
 
             </aside>
 
+
+        </div>
+            <!-- =========================
+         CV RESULT SECTION
+    ========================= -->
+
+    <section class="result-section" id="resultSection">
+
+        <div class="result-header">
+            <span class="result-badge">✨ YOUR PROFESSIONAL CV</span>
+
+            <h2>Your CV is Ready</h2>
+
+            <p>
+                Review your professional CV below.
+                Complete the payment to unlock your high-quality PDF download.
+            </p>
         </div>
 
 
-        <!-- RESULT -->
+        <!-- CV PAPER -->
 
-        <section id="resultSection">
+        <div class="cv-paper" id="cvPaper">
 
-            <div class="result-header">
+            <!-- PREMIUM LOCK -->
 
-                <h2>
-                    Your CV Is Ready
-                </h2>
+            <div class="premium-overlay" id="premiumOverlay">
 
-                <p>
-                    Review the preview below and unlock the professional version.
-                </p>
+                <div class="premium-box">
+
+                    <div class="premium-icon">🔐</div>
+
+                    <span class="premium-label">
+                        NEXORA PREMIUM
+                    </span>
+
+                    <h3>Unlock Your Professional CV</h3>
+
+                    <p>
+                        Get your professionally designed CV as a
+                        high-quality PDF ready for job applications.
+                    </p>
+
+                    <div class="premium-price">
+                        ₦2,000
+                    </div>
+
+                    <p class="one-time">
+                        One-time payment
+                    </p>
+
+                    <ul>
+                        <li>✓ Professional CV design</li>
+                        <li>✓ ATS-friendly structure</li>
+                        <li>✓ Professional formatting</li>
+                        <li>✓ High-quality PDF download</li>
+                        <li>✓ Ready for job applications</li>
+                    </ul>
+
+                    <button
+                        class="payment-btn"
+                        id="paymentButton"
+                        type="button"
+                        onclick="startPayment()"
+                    >
+                        🔓 Unlock My CV — ₦2,000
+                    </button>
+
+                </div>
 
             </div>
 
 
-            <div class="cv-wrapper">
+            <!-- CV CONTENT -->
 
-                <div class="cv-paper">
+            <div class="cv-content" id="cvContent">
 
-                    <div class="cv-content">
+                <!-- CV HEADER -->
 
-                        <div class="cv-name" id="previewName">
+                <div class="cv-header">
+
+                    <div class="cv-name-area">
+
+                        <h1 id="previewName">
                             Your Name
-                        </div>
+                        </h1>
 
-                        <div class="cv-contact">
-
-                            <div id="previewEmail">
-                                Email
-                            </div>
-
-                            <div id="previewPhone">
-                                Phone
-                            </div>
-
-                            <div id="previewLocation">
-                                Location
-                            </div>
-
-                        </div>
-
-
-                        <div class="cv-section">
-
-                            <h3>
-                                Career Objective
-                            </h3>
-
-                            <p id="previewObjective">
-                                Career objective
-                            </p>
-
-                        </div>
-
-
-                        <div class="cv-section">
-
-                            <h3>
-                                Education
-                            </h3>
-
-                            <p id="previewEducation">
-                                Education
-                            </p>
-
-                        </div>
-
-
-                        <div class="cv-section">
-
-                            <h3>
-                                Work Experience
-                            </h3>
-
-                            <p id="previewExperience">
-                                Work experience
-                            </p>
-
-                        </div>
-
-
-                        <div class="cv-section">
-
-                            <h3>
-                                Skills
-                            </h3>
-
-                            <p id="previewSkills">
-                                Skills
-                            </p>
-
-                        </div>
-
-
-                        <div class="cv-section">
-
-                            <h3>
-                                Certifications
-                            </h3>
-
-                            <p id="previewCertifications">
-                                Certifications
-                            </p>
-
-                        </div>
-
-
-                        <div class="cv-section">
-
-                            <h3>
-                                Languages
-                            </h3>
-
-                            <p id="previewLanguages">
-                                Languages
-                            </p>
-
-                        </div>
+                        <p>
+                            Professional CV
+                        </p>
 
                     </div>
 
 
-                    <!-- PREMIUM LOCK -->
+                    <div class="cv-contact">
 
-                    <div class="premium-overlay">
-
-                        <div class="premium-box">
-
-                            <div class="premium-icon">
-                                🔒
-                            </div>
-
-                            <div class="premium-label">
-                                NEXORA PREMIUM
-                            </div>
-
-                            <h2>
-                                Unlock Your Professional CV
-                            </h2>
-
-                            <p>
-                                Your CV has been prepared.
-                                Unlock the professional version
-                                when you're ready to use it for applications.
-                            </p>
-
-
-                            <div class="price">
-                                ₦2,000
-                            </div>
-
-                            <div class="one-time">
-                                One-time payment
-                            </div>
-
-
-                            <div class="features">
-
-                                <div>
-                                    <span>✓</span>
-                                    AI-powered CV improvement
-                                </div>
-
-                                <div>
-                                    <span>✓</span>
-                                    Professional career profile
-                                </div>
-
-                                <div>
-                                    <span>✓</span>
-                                    ATS-friendly structure
-                                </div>
-
-                                <div>
-                                    <span>✓</span>
-                                    Improved work experience wording
-                                </div>
-
-                                <div>
-                                    <span>✓</span>
-                                    Professional PDF download
-                                </div>
-
-                                <div>
-                                    <span>✓</span>
-                                    Ready for job applications
-                                </div>
-
-                            </div>
-
-
-                            <button
-                                class="btn payment-btn"
-                                type="button"
-                                onclick="startPayment()"
-                            >
-                                🔓 Unlock My CV — ₦2,000
-                            </button>
-
-
-                            <button
-                                class="btn edit-btn"
-                                type="button"
-                                onclick="editCV()"
-                            >
-                                ✏️ Edit My Information
-                            </button>
-                        
-
-
-                            <div class="secure-text">
-                                🔐 Secure payment powered by Paystack
-                            </div>
-
+                        <div id="previewEmail">
+                            email@example.com
                         </div>
-                        <button
-    id="downloadCVButton"
-    class="btn payment-btn"
-    type="button"
-    onclick="downloadCV()"
-    style="display: none; max-width: 850px; margin: 20px auto;"
->
-    📄 Download My CV as PDF
-                        </button>
 
+                        <div id="previewPhone">
+                            +234 000 000 0000
+                        </div>
+
+                        <div id="previewLocation">
+                            Nigeria
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROFILE -->
+
+                <div class="cv-section">
+
+                    <h2>PROFILE</h2>
+
+                    <p id="previewObjective">
+                        Your professional profile will appear here.
+                    </p>
+
+                </div>
+
+
+                <!-- EDUCATION -->
+
+                <div class="cv-section">
+
+                    <h2>EDUCATION</h2>
+
+                    <div
+                        class="cv-text"
+                        id="previewEducation"
+                    >
+                        Your education information will appear here.
+                    </div>
+
+                </div>
+
+
+                <!-- EXPERIENCE -->
+
+                <div class="cv-section">
+
+                    <h2>WORK EXPERIENCE</h2>
+
+                    <div
+                        class="cv-text"
+                        id="previewExperience"
+                    >
+                        Your work experience will appear here.
+                    </div>
+
+                </div>
+
+
+                <!-- SKILLS -->
+
+                <div class="cv-section">
+
+                    <h2>SKILLS</h2>
+
+                    <div
+                        class="cv-text"
+                        id="previewSkills"
+                    >
+                        Your skills will appear here.
+                    </div>
+
+                </div>
+
+
+                <!-- CERTIFICATIONS -->
+
+                <div
+                    class="cv-section"
+                    id="certificationSection"
+                >
+
+                    <h2>CERTIFICATIONS</h2>
+
+                    <div
+                        class="cv-text"
+                        id="previewCertifications"
+                    >
+                        Your certifications will appear here.
+                    </div>
+
+                </div>
+
+
+                <!-- LANGUAGES -->
+
+                <div
+                    class="cv-section"
+                    id="languageSection"
+                >
+
+                    <h2>LANGUAGES</h2>
+
+                    <div
+                        class="cv-text"
+                        id="previewLanguages"
+                    >
+                        Your languages will appear here.
+                    </div>
+
+                </div>
+
+
+                <!-- REFERENCES -->
+
+                <div
+                    class="cv-section"
+                    id="referenceSection"
+                >
+
+                    <h2>REFERENCES</h2>
+
+                    <div
+                        class="cv-text"
+                        id="previewReferences"
+                    >
+                        Available upon request.
                     </div>
 
                 </div>
 
             </div>
 
-        </section>
-
-    </main>
+        </div>
 
 
-    <!-- FOOTER -->
+        <!-- AFTER PAYMENT -->
 
-    <footer>
+        <div
+            class="after-payment"
+            id="afterPayment"
+        >
+
+            <div class="success-message">
+
+                <div class="success-icon">
+                    ✓
+                </div>
+
+                <div>
+
+                    <h3>
+                        Your CV Has Been Unlocked!
+                    </h3>
+
+                    <p>
+                        Your professional CV is now ready.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="result-actions">
+
+                <button
+                    class="download-btn"
+                    id="downloadCVButton"
+                    type="button"
+                    onclick="downloadCV()"
+                >
+                    📥 Download Professional CV
+                </button>
+
+
+                <button
+                    class="edit-btn"
+                    type="button"
+                    
+                       </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer class="footer">
+
+        <div class="footer-logo">
+            NEXORA
+        </div>
 
         <p>
-            © 2026 Nexora. Your Next Opportunity Starts Here.
+            Your Next Opportunity Starts Here.
         </p>
 
-    </footer>
+        <div class="footer-contact">
+
+            <a href="mailto:ablegodluke@gmail.com">
+                ablegodluke@gmail.com
+            </a>
+
+            <a href="tel:09017579718">
+                09017579718
+            </a>
+
+        </div>
+
+        <p class="copyright">
+            © 2026 Nexora. All rights reserved.
+        </p>
+
+                    </footer>
+                    <style>
+
+/* =========================
+   BENEFITS CARD
+========================= */
+
+.benefits-card {
+    background: #ffffff;
+    border-radius: 24px;
+    padding: 30px;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.08);
+    border: 1px solid #eeeeee;
+}
+
+.benefits-card h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: #17132f;
+}
+
+.benefits-card > p {
+    color: #666;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 0;
+    border-bottom: 1px solid #eeeeee;
+    color: #333;
+    font-weight: 600;
+}
+
+.benefit-item:last-child {
+    border-bottom: none;
+}
+
+.benefit-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #f1ecff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
 
 
-    <!-- JAVASCRIPT -->
-<script>
+/* =========================
+   RESULT SECTION
+========================= */
+
+.result-section {
+    max-width: 1100px;
+    margin: 70px auto;
+    padding: 0 20px;
+}
+
+.result-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.result-badge {
+    display: inline-block;
+    background: #f1ecff;
+    color: #6c3cff;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.result-header h2 {
+    font-size: 38px;
+    margin: 15px 0 10px;
+    color: #17132f;
+}
+
+.result-header p {
+    max-width: 650px;
+    margin: auto;
+    color: #666;
+    line-height: 1.6;
+}
+
+
+/* =========================
+   CV PAPER
+========================= */
+
+.cv-paper {
+    position: relative;
+    width: 100%;
+    max-width: 850px;
+    min-height: 1100px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    overflow: hidden;
+}
+
+.cv-content {
+    padding: 55px;
+    background: #ffffff;
+    color: #222;
+    transition: filter 0.3s ease;
+}
+
+.cv-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    padding-bottom: 28px;
+    border-bottom: 3px solid #6c3cff;
+    margin-bottom: 30px;
+}
+
+.cv-name-area h1 {
+    margin: 0;
+    font-size: 38px;
+    color: #17132f;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cv-name-area p {
+    margin-top: 8px;
+    color: #6c3cff;
+    font-weight: 700;
+}
+
+.cv-contact {
+    text-align: right;
+    font-size: 13px;
+    line-height: 1.8;
+    color: #555;
+}
+
+.cv-section {
+    margin-bottom: 28px;
+}
+
+.cv-section h2 {
+    font-size: 15px;
+    color: #6c3cff;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #eeeeee;
+    padding-bottom: 7px;
+}
+
+.cv-section p,
+.cv-text {
+    white-space: pre-line;
+    font-size: 14px;
+    line-height: 1.7;
+    color: #333;
+}
+
+
+/* =========================
+   PREMIUM OVERLAY
+========================= */
+
+.premium-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(17, 13, 45, 0.78);
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 25px;
+    z-index: 10;
+}
+
+.premium-box {
+    width: 100%;
+    max-width: 430px;
+    background: #ffffff;
+    border-radius: 25px;
+    padding: 35px 30px;
+    text-align: center;
+    box-shadow: 0 25px 70px rgba(0,0,0,0.3);
+}
+
+.premium-icon {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 15px;
+    border-radius: 20px;
+    background: #f1ecff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+}
+
+.premium-label {
+    color: #6c3cff;
+    font-size: 12px;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+}
+
+.premium-box h3 {
+    font-size: 26px;
+    color: #17132f;
+    margin: 10px 0;
+}
+
+.premium-box > p {
+    color: #666;
+    line-height: 1.6;
+}
+
+.premium-price {
+    font-size: 40px;
+    font-weight: 900;
+    color: #17132f;
+    margin-top: 15px;
+}
+
+.one-time {
+    font-size: 13px;
+    margin-top: -5px;
+}
+
+.premium-box ul {
+    list-style: none;
+    text-align: left;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.premium-box li {
+    padding: 8px 0;
+    color: #333;
+    font-size: 14px;
+}
+
+
+/* =========================
+   PAYMENT BUTTON
+========================= */
+
+.payment-btn {
+    width: 100%;
+    border: none;
+    padding: 16px 20px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6c3cff, #8b5cf6);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(108,60,255,0.25);
+}
+
+.payment-btn:hover {
+    transform: translateY(-2px);
+}
+
+
+/* =========================
+   AFTER PAYMENT
+========================= */
+
+.after-payment {
+    display: none;
+    max-width: 850px;
+    margin: 25px auto 0;
+    gap: 20px;
+    flex-direction: column;
+}
+
+.success-message {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 15px;
+    background: #ecfdf3;
+    border: 1px solid #b7ebc6;
+}
+
+.success-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #16a34a;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.success-message h3 {
+    margin: 0 0 4px;
+    color: #166534;
+}
+
+.success-message p {
+    margin: 0;
+    color: #4b5563;
+}
+
+
+/* =========================
+   RESULT BUTTONS
+========================= */
+
+.result-actions {
+    display: flex;
+    gap: 15px;
+}
+
+.download-btn,
+.edit-btn {
+    flex: 1;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.download-btn {
+    background: #17132f;
+    color: #ffffff;
+}
+
+.edit-btn {
+    background: #eeeeee;
+    color: #17132f;
+}
+
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+    margin-top: 80px;
+    background: #17132f;
+    color: #ffffff;
+    text-align: center;
+    padding: 45px 20px;
+}
+
+.footer-logo {
+    font-size: 24px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.footer > p {
+    color: #bbb;
+    margin: 10px 0 20px;
+}
+
+.footer-contact {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.footer-contact a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.copyright {
+    margin-top: 30px !important;
+    font-size: 13px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 850px) {
+
+    .cv-content {
+        padding: 35px;
+    }
+
+    .cv-header {
+        flex-direction: column;
+    }
+
+    .cv-contact {
+        text-align: left;
+    }
+
+    .cv-name-area h1 {
+        font-size: 30px;
+    }
+
+    .result-header h2 {
+        font-size: 30px;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .cv-content {
+        padding: 25px 20px;
+    }
+
+    .cv-name-area h1 {
+        font-size: 25px;
+    }
+
+    .cv-section p,
+    .cv-text {
+        font-size: 13px;
+    }
+
+    .premium-box {
+        padding: 28px 20px;
+    }
+
+    .premium-box h3 {
+        font-size: 22px;
+    }
+
+    .premium-price {
+        font-size: 34px;
+    }
+
+    .result-actions {
+        flex-direction: column;
+    }
+
+    .footer-contact {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+}
+
+
+/* =========================
+   PRINT / PDF
+========================= */
+
+@media print {
+
+    body * {
+        visibility: hidden;
+    }
+
+    #cvPaper,
+    #cvPaper * {
+        visibility: visible;
+    }
+
+    #cvPaper {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        box-shadow: none;
+    }
+
+    .premium-overlay {
+        display: none !important;
+    }
+
+    .cv-content {
+        filter: none !important;
+    }
+
+}
+
+                    </style>
+                    <script>
+
+/* =========================
+   HELPER: GET VALUE
+========================= */
+
+function getValue(id) {
+    const element = document.getElementById(id);
+
+    if (!element) {
+        return "";
+    }
+
+    return element.value.trim();
+}
+
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(text) {
+
+    const div = document.createElement("div");
+
+    div.textContent = text || "";
+
+    return div.innerHTML;
+}
+
 
 /* =========================
    GENERATE CV
@@ -1114,80 +1833,309 @@
 
 function generateCV() {
 
-    const fullName = document.getElementById("fullName").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const location = document.getElementById("location").value.trim();
-    const objective = document.getElementById("objective").value.trim();
-    const education = document.getElementById("education").value.trim();
-    const experience = document.getElementById("experience").value.trim();
-    const skills = document.getElementById("skills").value.trim();
-    const certifications = document.getElementById("certifications").value.trim();
-    const languages = document.getElementById("languages").value.trim();
+    const fullName = getValue("fullName");
+    const email = getValue("email");
+    const phone = getValue("phone");
+    const location = getValue("location");
+    const objective = getValue("objective");
+    const education = getValue("education");
+    const experience = getValue("experience");
+    const skills = getValue("skills");
+    const certifications = getValue("certifications");
+    const languages = getValue("languages");
+    const references = getValue("references");
 
-    if (!fullName) {
-        alert("Please enter your full name.");
+
+    /* REQUIRED INFORMATION */
+
+    if (!fullName || !email || !phone) {
+
+        alert(
+            "Please enter your full name, email address and phone number."
+        );
+
         return;
     }
 
-    if (!email) {
-        alert("Please enter your email address.");
-        return;
-    }
 
-    if (!phone) {
-        alert("Please enter your phone number.");
-        return;
-    }
+    /* UPDATE CV */
 
-    document.getElementById("previewName").textContent = fullName;
-    document.getElementById("previewEmail").textContent = email;
-    document.getElementById("previewPhone").textContent = phone;
+    document.getElementById("previewName").textContent =
+        fullName;
+
+    document.getElementById("previewEmail").textContent =
+        email;
+
+    document.getElementById("previewPhone").textContent =
+        phone;
+
     document.getElementById("previewLocation").textContent =
-        location || "Location not provided";
+        location || "Nigeria";
 
     document.getElementById("previewObjective").textContent =
-        objective || "Not provided";
+        objective || "Professional profile not provided.";
 
     document.getElementById("previewEducation").textContent =
-        education || "Not provided";
+        education || "Education information not provided.";
 
     document.getElementById("previewExperience").textContent =
-        experience || "Not provided";
+        experience || "Work experience not provided.";
 
     document.getElementById("previewSkills").textContent =
-        skills || "Not provided";
+        skills || "Skills not provided.";
 
     document.getElementById("previewCertifications").textContent =
-        certifications || "Not provided";
+        certifications || "No certifications provided.";
 
     document.getElementById("previewLanguages").textContent =
-        languages || "Not provided";
+        languages || "Languages not provided.";
+
+    document.getElementById("previewReferences").textContent =
+        references || "Available upon request.";
+
+
+    /* SHOW RESULT */
 
     const resultSection =
         document.getElementById("resultSection");
 
-    if (resultSection) {
-        resultSection.style.display = "block";
+    resultSection.style.display = "block";
+
+
+    /* SCROLL TO CV */
+
+    setTimeout(function () {
 
         resultSection.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
-    }
+
+    }, 200);
+
 }
 
 
 /* =========================
-   EDIT CV
+   START PAYSTACK PAYMENT
 ========================= */
 
-function editCV() {
+function startPayment() {
 
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-    });
+    const email = getValue("email");
+
+    if (!email) {
+
+        alert(
+            "Please enter your email address before making payment."
+        );
+
+        return;
+    }
+
+
+    const paymentButton =
+        document.getElementById("paymentButton");
+
+    paymentButton.disabled = true;
+
+    paymentButton.textContent =
+        "Opening payment...";
+
+
+    try {
+
+        const paystack = new PaystackPop();
+
+
+        paystack.newTransaction({
+
+            key:
+                "pk_test_6337a8d184ff7cbbb57e3f0ed90e0d420cced37f5",
+
+            email:
+                email,
+
+            amount:
+                200000,
+
+            currency:
+                "NGN",
+
+            channels:
+                [
+                    "card",
+                    "bank",
+                    "ussd",
+                    "bank_transfer"
+                ],
+
+
+            onSuccess:
+                async function(transaction) {
+
+                    paymentButton.textContent =
+                        "Verifying payment...";
+
+                    await verifyPayment(
+                        transaction.reference
+                    );
+
+                },
+
+
+            onCancel:
+                function() {
+
+                    paymentButton.disabled = false;
+
+                    paymentButton.textContent =
+                        "🔓 Unlock My CV — ₦2,000";
+
+                    alert(
+                        "Payment was cancelled. Your CV is still locked."
+                    );
+
+                }
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        paymentButton.disabled = false;
+
+        paymentButton.textContent =
+            "🔓 Unlock My CV — ₦2,000";
+
+        alert(
+            "Unable to open payment. Please refresh the page and try again."
+        );
+
+    }
+
+}
+
+
+/* =========================
+   VERIFY PAYMENT
+========================= */
+
+async function verifyPayment(reference) {
+
+    try {
+
+        const response = await fetch(
+            "/api/verify-payment.js",
+            {
+                method: "POST",
+
+                headers: {
+                    "Content-Type":
+                        "application/json"
+                },
+
+                body: JSON.stringify({
+                    reference: reference
+                })
+            }
+        );
+
+
+        const result =
+            await response.json();
+
+
+        if (
+            response.ok &&
+            result.success
+        ) {
+
+            unlockCV();
+
+        }
+
+        else {
+
+            alert(
+                result.message ||
+                "Payment verification failed."
+            );
+
+            const paymentButton =
+                document.getElementById("paymentButton");
+
+            paymentButton.disabled = false;
+
+            paymentButton.textContent =
+                "🔓 Unlock My CV — ₦2,000";
+        }
+
+    }
+
+    catch (error) {
+
+        console.error(error);
+
+        alert(
+            "We could not verify your payment. Please try again."
+        );
+
+        const paymentButton =
+            document.getElementById("paymentButton");
+
+        paymentButton.disabled = false;
+
+        paymentButton.textContent =
+            "🔓 Unlock My CV — ₦2,000";
+    }
+
+}
+
+
+/* =========================
+   UNLOCK CV
+========================= */
+
+function unlockCV() {
+
+    const overlay =
+        document.getElementById("premiumOverlay");
+
+    const cvContent =
+        document.getElementById("cvContent");
+
+    const afterPayment =
+        document.getElementById("afterPayment");
+
+
+    if (overlay) {
+
+        overlay.style.display =
+            "none";
+    }
+
+
+    if (cvContent) {
+
+        cvContent.style.filter =
+            "none";
+    }
+
+
+    if (afterPayment) {
+
+        afterPayment.style.display =
+            "flex";
+    }
+
+
+    alert(
+        "Payment verified successfully! Your professional CV is now unlocked."
+    );
 
 }
 
@@ -1196,359 +2144,130 @@ function editCV() {
    DOWNLOAD CV
 ========================= */
 
-function downloadCV() {
+async function downloadCV() {
 
-    const cvContent =
-        document.querySelector(".cv-content");
+    const cv =
+        document.getElementById("cvPaper");
 
-    if (!cvContent) {
-        alert("Your CV could not be found.");
-        return;
-    }
 
-    if (typeof html2pdf === "undefined") {
+    if (!cv) {
 
         alert(
-            "The PDF system could not load. " +
-            "Please check your internet connection."
-        );
-
-        return;
-    }
-
-    const fullName =
-        document.getElementById("fullName").value.trim();
-
-    const fileName =
-        (fullName || "Nexora-CV")
-        .replace(/[^a-z0-9]/gi, "-")
-        .replace(/-+/g, "-");
-
-    const options = {
-
-        margin: 0.4,
-
-        filename:
-            fileName + "-CV.pdf",
-
-        image: {
-            type: "jpeg",
-            quality: 0.98
-        },
-
-        html2canvas: {
-            scale: 2,
-            useCORS: true
-        },
-
-        jsPDF: {
-            unit: "in",
-            format: "a4",
-            orientation: "portrait"
-        }
-
-    };
-
-    html2pdf()
-        .set(options)
-        .from(cvContent)
-        .save();
-}
-
-
-/* =========================
-   PAYSTACK PAYMENT
-========================= */
-
-function startPayment() {
-
-    const fullName =
-        document.getElementById("fullName").value.trim();
-
-    const email =
-        document.getElementById("email").value.trim();
-
-    const phone =
-        document.getElementById("phone").value.trim();
-
-
-    if (!fullName) {
-        alert("Please enter your full name first.");
-        return;
-    }
-
-    if (!email) {
-        alert("Please enter your email address first.");
-        return;
-    }
-
-    if (!phone) {
-        alert("Please enter your phone number first.");
-        return;
-    }
-
-
-    if (typeof PaystackPop === "undefined") {
-
-        alert(
-            "Paystack could not load. " +
-            "Please check your internet connection."
+            "CV could not be found."
         );
 
         return;
     }
 
 
-    const paystack = new PaystackPop();
+    const fullName =
+        getValue("fullName") ||
+        "Nexora-CV";
 
 
-    paystack.newTransaction({
-
-        key:
-            "pk_test_6337a8d184ff7cbbb57e3f0ed90e0d420cced37f",
-
-        email:
-            email,
-
-        amount:
-            200000,
-
-        currency:
-            "NGN",
-
-        firstName:
-            fullName,
-
-        phone:
-            phone,
-
-        metadata: {
-
-            product:
-                "Nexora Professional CV",
-
-            customer_name:
-                fullName
-
-        },
+    const safeName =
+        fullName
+            .replace(/[^a-z0-9]/gi, "-")
+            .replace(/-+/g, "-");
 
 
-        onSuccess: async function(transaction) {
+    const filename =
+        safeName +
+        "-Professional-CV.pdf";
 
-            alert(
-                "Payment received. Verifying your payment..."
+
+    try {
+
+        const downloadButton =
+            document.getElementById(
+                "downloadCVButton"
             );
 
 
-            try {
+        if (downloadButton) {
 
-                const response =
-                    await fetch(
-                        "/api/verify-payment",
-                        {
-                            method: "POST",
+            downloadButton.disabled = true;
 
-                            headers: {
-                                "Content-Type":
-                                    "application/json"
-                            },
-
-                            body:
-                                JSON.stringify({
-                                    reference:
-                                        transaction.reference
-                                })
-                        }
-                    );
+            downloadButton.textContent =
+                "Preparing PDF...";
+        }
 
 
-                const result =
-                    await response.json();
+        const options = {
 
+            margin:
+                0,
 
-                if (result.success) {
+            filename:
+                filename,
 
-                    /* =========================
-                       UNLOCK CV
-                    ========================= */
+            image: {
 
-                    const overlay =
-                        document.querySelector(
-                            ".premium-overlay"
-                        );
+                type:
+                    "jpeg",
 
-                    const cvContent =
-                        document.querySelector(
-                            ".cv-content"
-                        );
+                quality:
+                    0.98
+            },
 
+            html2canvas: {
 
-                    if (overlay) {
+                scale:
+                    2,
 
-                        overlay.style.display =
-                            "none";
+                useCORS:
+                    true,
 
-                    }
+                backgroundColor:
+                    "#ffffff"
+            },
 
+            jsPDF: {
 
-                    if (cvContent) {
+                unit:
+                    "mm",
 
-                        cvContent.style.filter =
-                            "none";
+                format:
+                    "a4",
 
-                        cvContent.style.userSelect =
-                            "auto";
-
-                    }
-
-
-                    /* =========================
-                       CREATE DOWNLOAD BUTTON
-                       DIRECTLY ON THE PAGE
-                    ========================= */
-
-                    let downloadButton =
-                        document.getElementById(
-                            "downloadCVButton"
-                        );
-
-
-                    if (!downloadButton) {
-
-                        downloadButton =
-                            document.createElement("button");
-
-                        downloadButton.id =
-                            "downloadCVButton";
-
-                        downloadButton.textContent =
-                            "📄 DOWNLOAD MY CV AS PDF";
-
-                        downloadButton.type =
-                            "button";
-
-                        downloadButton.onclick =
-                            downloadCV;
-
-                        document.body.appendChild(
-                            downloadButton
-                        );
-
-                    }
-
-
-                    /* =========================
-                       MAKE BUTTON VERY VISIBLE
-                    ========================= */
-
-                    downloadButton.style.display =
-                        "block";
-
-                    downloadButton.style.position =
-                        "fixed";
-
-                    downloadButton.style.top =
-                        "20px";
-
-                    downloadButton.style.right =
-                        "20px";
-
-                    downloadButton.style.zIndex =
-                        "999999";
-
-                    downloadButton.style.background =
-                        "#6c4df6";
-
-                    downloadButton.style.color =
-                        "#ffffff";
-
-                    downloadButton.style.border =
-                        "3px solid #ffffff";
-
-                    downloadButton.style.padding =
-                        "16px 22px";
-
-                    downloadButton.style.borderRadius =
-                        "12px";
-
-                    downloadButton.style.fontSize =
-                        "16px";
-
-                    downloadButton.style.fontWeight =
-                        "800";
-
-                    downloadButton.style.cursor =
-                        "pointer";
-
-                    downloadButton.style.boxShadow =
-                        "0 10px 30px rgba(0,0,0,0.35)";
-
-
-                    alert(
-                        "Payment verified successfully!\n\n" +
-                        "Your CV is unlocked.\n\n" +
-                        "The DOWNLOAD MY CV button is now at the top-right of the screen."
-                    );
-
-
-                } else {
-
-                    alert(
-                        "We could not verify this payment.\n\n" +
-                        "Please contact Nexora support with your payment reference:\n" +
-                        transaction.reference
-                    );
-
-                }
-
-
-            } catch (error) {
-
-                console.error(
-                    "Verification error:",
-                    error
-                );
-
-                alert(
-                    "Payment was received, but verification could not be completed right now.\n\n" +
-                    "Please contact Nexora support with your payment reference:\n" +
-                    transaction.reference
-                );
-
+                orientation:
+                    "portrait"
             }
 
-        },
+        };
 
 
-        onCancel: function() {
-
-            alert(
-                "Payment was cancelled."
-            );
-
-        },
+        await html2pdf()
+            .set(options)
+            .from(cv)
+            .save();
 
 
-        onError: function(error) {
+        if (downloadButton) {
 
-            console.error(
-                "Paystack error:",
-                error
-            );
+            downloadButton.disabled = false;
 
-            alert(
-                "There was a problem opening the payment window."
-            );
-
+            downloadButton.textContent =
+                "📥 Download Professional CV";
         }
 
-    });
+    }
 
-}
+    catch (error) {
 
-    </script>
-   
-      
+        console.error(error);
+
+        alert(
+            "There was a problem creating your PDF. Please try again."
+        );
+        </script>
 
 </body>
+
+
+
+                    
 </html>
+        
+                    
+        
