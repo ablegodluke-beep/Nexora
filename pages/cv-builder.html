@@ -1317,24 +1317,77 @@
                 },
 
 
-                onSuccess: function(transaction) {
+                onSuccess: async function(transaction) {
 
-                    console.log(
-                        "Payment successful:",
-                        transaction
-                    );
+    alert("Payment received. Verifying your payment...");
 
+    try {
 
-                    alert(
-                        "Payment completed successfully!\n\n" +
-                        "Reference: " +
-                        transaction.reference +
-                        "\n\n" +
-                        "We will verify your payment before unlocking your professional CV."
-                    );
+        const response = await fetch(
+            "/api/verify-payment",
+            {
+                method: "POST",
 
+                headers: {
+                    "Content-Type": "application/json"
                 },
 
+                body: JSON.stringify({
+                    reference: transaction.reference
+                })
+            }
+        );
+
+        const result = await response.json();
+
+        if (result.success) {
+
+            alert(
+                "Payment verified successfully!\n\n" +
+                "Your professional CV is now unlocked."
+            );
+
+            const overlay =
+    document.querySelector(".premium-overlay");
+
+const cvContent =
+    document.querySelector(".cv-content");
+
+if (overlay) {
+    overlay.style.display = "none";
+}
+
+if (cvContent) {
+    cvContent.style.filter = "none";
+    cvContent.style.userSelect = "auto";
+        }
+
+        } else {
+
+            alert(
+                "We could not verify this payment.\n\n" +
+                "Please contact Nexora support with your payment reference:\n" +
+                transaction.reference
+            );
+
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Verification error:",
+            error
+        );
+
+        alert(
+            "Payment was received, but verification could not be completed right now.\n\n" +
+            "Please contact Nexora support with your payment reference:\n" +
+            transaction.reference
+        );
+
+    }
+
+},
 
                 onCancel: function() {
 
