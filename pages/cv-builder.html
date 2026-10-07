@@ -1106,460 +1106,448 @@
 
 
     <!-- JAVASCRIPT -->
+<script>
 
-    <script>
+/* =========================
+   GENERATE CV
+========================= */
 
-    /* =========================
-       GENERATE CV
-    ========================= */
+function generateCV() {
 
-    function generateCV() {
+    const fullName = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const location = document.getElementById("location").value.trim();
+    const objective = document.getElementById("objective").value.trim();
+    const education = document.getElementById("education").value.trim();
+    const experience = document.getElementById("experience").value.trim();
+    const skills = document.getElementById("skills").value.trim();
+    const certifications = document.getElementById("certifications").value.trim();
+    const languages = document.getElementById("languages").value.trim();
 
-        const fullName =
-            document.getElementById("fullName").value.trim();
+    if (!fullName) {
+        alert("Please enter your full name.");
+        return;
+    }
 
-        const email =
-            document.getElementById("email").value.trim();
+    if (!email) {
+        alert("Please enter your email address.");
+        return;
+    }
 
-        const phone =
-            document.getElementById("phone").value.trim();
+    if (!phone) {
+        alert("Please enter your phone number.");
+        return;
+    }
 
-        const location =
-            document.getElementById("location").value.trim();
+    document.getElementById("previewName").textContent = fullName;
+    document.getElementById("previewEmail").textContent = email;
+    document.getElementById("previewPhone").textContent = phone;
+    document.getElementById("previewLocation").textContent =
+        location || "Location not provided";
 
-        const objective =
-            document.getElementById("objective").value.trim();
+    document.getElementById("previewObjective").textContent =
+        objective || "Not provided";
 
-        const education =
-            document.getElementById("education").value.trim();
+    document.getElementById("previewEducation").textContent =
+        education || "Not provided";
 
-        const experience =
-            document.getElementById("experience").value.trim();
+    document.getElementById("previewExperience").textContent =
+        experience || "Not provided";
 
-        const skills =
-            document.getElementById("skills").value.trim();
+    document.getElementById("previewSkills").textContent =
+        skills || "Not provided";
 
-        const certifications =
-            document.getElementById("certifications").value.trim();
+    document.getElementById("previewCertifications").textContent =
+        certifications || "Not provided";
 
-        const languages =
-            document.getElementById("languages").value.trim();
+    document.getElementById("previewLanguages").textContent =
+        languages || "Not provided";
 
+    const resultSection =
+        document.getElementById("resultSection");
 
-        if (!fullName) {
-            alert("Please enter your full name.");
-            document.getElementById("fullName").focus();
-            return;
-        }
+    if (resultSection) {
+        resultSection.style.display = "block";
 
-        if (!email) {
-            alert("Please enter your email address.");
-            document.getElementById("email").focus();
-            return;
-        }
-
-        if (!phone) {
-            alert("Please enter your phone number.");
-            document.getElementById("phone").focus();
-            return;
-        }
-
-
-        document.getElementById("previewName").textContent =
-            fullName;
-
-        document.getElementById("previewEmail").textContent =
-            email;
-
-        document.getElementById("previewPhone").textContent =
-            phone;
-
-        document.getElementById("previewLocation").textContent =
-            location || "Location not provided";
-
-        document.getElementById("previewObjective").textContent =
-            objective || "Not provided";
-
-        document.getElementById("previewEducation").textContent =
-            education || "Not provided";
-
-        document.getElementById("previewExperience").textContent =
-            experience || "Not provided";
-
-        document.getElementById("previewSkills").textContent =
-            skills || "Not provided";
-
-        document.getElementById("previewCertifications").textContent =
-            certifications || "Not provided";
-
-        document.getElementById("previewLanguages").textContent =
-            languages || "Not provided";
-
-
-        document.getElementById("resultSection").style.display =
-            "block";
-
-
-        document.getElementById("resultSection").scrollIntoView({
+        resultSection.scrollIntoView({
             behavior: "smooth",
             block: "start"
         });
+    }
+}
 
+
+/* =========================
+   EDIT CV
+========================= */
+
+function editCV() {
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =========================
+   DOWNLOAD CV
+========================= */
+
+function downloadCV() {
+
+    const cvContent =
+        document.querySelector(".cv-content");
+
+    if (!cvContent) {
+        alert("Your CV could not be found.");
+        return;
+    }
+
+    if (typeof html2pdf === "undefined") {
+
+        alert(
+            "The PDF system could not load. " +
+            "Please check your internet connection."
+        );
+
+        return;
+    }
+
+    const fullName =
+        document.getElementById("fullName").value.trim();
+
+    const fileName =
+        (fullName || "Nexora-CV")
+        .replace(/[^a-z0-9]/gi, "-")
+        .replace(/-+/g, "-");
+
+    const options = {
+
+        margin: 0.4,
+
+        filename:
+            fileName + "-CV.pdf",
+
+        image: {
+            type: "jpeg",
+            quality: 0.98
+        },
+
+        html2canvas: {
+            scale: 2,
+            useCORS: true
+        },
+
+        jsPDF: {
+            unit: "in",
+            format: "a4",
+            orientation: "portrait"
+        }
+
+    };
+
+    html2pdf()
+        .set(options)
+        .from(cvContent)
+        .save();
+}
+
+
+/* =========================
+   PAYSTACK PAYMENT
+========================= */
+
+function startPayment() {
+
+    const fullName =
+        document.getElementById("fullName").value.trim();
+
+    const email =
+        document.getElementById("email").value.trim();
+
+    const phone =
+        document.getElementById("phone").value.trim();
+
+
+    if (!fullName) {
+        alert("Please enter your full name first.");
+        return;
+    }
+
+    if (!email) {
+        alert("Please enter your email address first.");
+        return;
+    }
+
+    if (!phone) {
+        alert("Please enter your phone number first.");
+        return;
     }
 
 
-    /* =========================
-       EDIT CV
-    ========================= */
+    if (typeof PaystackPop === "undefined") {
 
-    function editCV() {
+        alert(
+            "Paystack could not load. " +
+            "Please check your internet connection."
+        );
 
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-
+        return;
     }
 
 
-    /* =========================
-       DOWNLOAD CV AS PDF
-    ========================= */
-
-    function downloadCV() {
-
-        const cvContent =
-            document.querySelector(".cv-content");
-
-        if (!cvContent) {
-            alert("Your CV could not be found.");
-            return;
-        }
+    const paystack = new PaystackPop();
 
 
-        if (typeof html2pdf === "undefined") {
+    paystack.newTransaction({
 
-            alert(
-                "The PDF system could not load. " +
-                "Please check your internet connection and try again."
-            );
+        key:
+            "pk_test_6337a8d184ff7cbbb57e3f0ed90e0d420cced37f",
 
-            return;
-        }
+        email:
+            email,
 
+        amount:
+            200000,
 
-        const fullName =
-            document.getElementById("fullName").value.trim();
+        currency:
+            "NGN",
 
+        firstName:
+            fullName,
 
-        const fileName =
-            (fullName || "Nexora-CV")
-            .replace(/[^a-z0-9]/gi, "-")
-            .replace(/-+/g, "-");
+        phone:
+            phone,
 
+        metadata: {
 
-        const options = {
+            product:
+                "Nexora Professional CV",
 
-            margin: 0.4,
+            customer_name:
+                fullName
 
-            filename:
-                fileName + "-CV.pdf",
-
-            image: {
-                type: "jpeg",
-                quality: 0.98
-            },
-
-            html2canvas: {
-                scale: 2,
-                useCORS: true
-            },
-
-            jsPDF: {
-                unit: "in",
-                format: "a4",
-                orientation: "portrait"
-            }
-
-        };
+        },
 
 
-        html2pdf()
-            .set(options)
-            .from(cvContent)
-            .save();
-
-    }
-
-
-    /* =========================
-       PAYSTACK PAYMENT
-    ========================= */
-
-    function startPayment() {
-
-        const fullName =
-            document.getElementById("fullName").value.trim();
-
-        const email =
-            document.getElementById("email").value.trim();
-
-        const phone =
-            document.getElementById("phone").value.trim();
-
-
-        if (!fullName) {
+        onSuccess: async function(transaction) {
 
             alert(
-                "Please enter your full name first."
+                "Payment received. Verifying your payment..."
             );
 
-            return;
-        }
+
+            try {
+
+                const response =
+                    await fetch(
+                        "/api/verify-payment",
+                        {
+                            method: "POST",
+
+                            headers: {
+                                "Content-Type":
+                                    "application/json"
+                            },
+
+                            body:
+                                JSON.stringify({
+                                    reference:
+                                        transaction.reference
+                                })
+                        }
+                    );
 
 
-        if (!email) {
-
-            alert(
-                "Please enter your email address first."
-            );
-
-            return;
-        }
+                const result =
+                    await response.json();
 
 
-        if (!phone) {
+                if (result.success) {
 
-            alert(
-                "Please enter your phone number first."
-            );
+                    /* =========================
+                       UNLOCK CV
+                    ========================= */
 
-            return;
-        }
+                    const overlay =
+                        document.querySelector(
+                            ".premium-overlay"
+                        );
 
-
-        if (typeof PaystackPop === "undefined") {
-
-            alert(
-                "Paystack could not load. Please check your internet connection and try again."
-            );
-
-            return;
-        }
-
-
-        const paystack =
-            new PaystackPop();
-
-
-        paystack.newTransaction({
-
-            key:
-                "pk_test_6337a8d184ff7cbbb57e3f0ed90e0d420cced37f",
-
-            email:
-                email,
-
-            amount:
-                200000,
-
-            currency:
-                "NGN",
-
-            firstName:
-                fullName,
-
-            phone:
-                phone,
-
-            metadata: {
-
-                product:
-                    "Nexora Professional CV",
-
-                customer_name:
-                    fullName
-
-            },
-
-
-            onLoad: function(response) {
-
-                console.log(
-                    "Paystack loaded:",
-                    response
-                );
-
-            },
-
-
-            onSuccess: async function(transaction) {
-
-                alert(
-                    "Payment received. Verifying your payment..."
-                );
-
-
-                try {
-
-                    const response =
-                        await fetch(
-                            "/api/verify-payment",
-                            {
-                                method: "POST",
-
-                                headers: {
-                                    "Content-Type":
-                                        "application/json"
-                                },
-
-                                body:
-                                    JSON.stringify({
-                                        reference:
-                                            transaction.reference
-                                    })
-                            }
+                    const cvContent =
+                        document.querySelector(
+                            ".cv-content"
                         );
 
 
-                    const result =
-                        await response.json();
+                    if (overlay) {
+
+                        overlay.style.display =
+                            "none";
+
+                    }
 
 
-                    if (result.success) {
+                    if (cvContent) {
 
-                        alert(
-                            "Payment verified successfully!\n\n" +
-                            "Your professional CV is now unlocked."
+                        cvContent.style.filter =
+                            "none";
+
+                        cvContent.style.userSelect =
+                            "auto";
+
+                    }
+
+
+                    /* =========================
+                       CREATE DOWNLOAD BUTTON
+                       DIRECTLY ON THE PAGE
+                    ========================= */
+
+                    let downloadButton =
+                        document.getElementById(
+                            "downloadCVButton"
                         );
 
 
-                        /* UNLOCK CV */
+                    if (!downloadButton) {
 
-                        const overlay =
-                            document.querySelector(
-                                ".premium-overlay"
-                            );
+                        downloadButton =
+                            document.createElement("button");
 
+                        downloadButton.id =
+                            "downloadCVButton";
 
-                        const cvContent =
-                            document.querySelector(
-                                ".cv-content"
-                            );
+                        downloadButton.textContent =
+                            "📄 DOWNLOAD MY CV AS PDF";
 
+                        downloadButton.type =
+                            "button";
 
-                        if (overlay) {
+                        downloadButton.onclick =
+                            downloadCV;
 
-                            overlay.style.display =
-                                "none";
-
-                        }
-
-
-                        if (cvContent) {
-
-                            cvContent.style.filter =
-                                "none";
-
-                            cvContent.style.userSelect =
-                                "auto";
-
-                        }
-
-
-                        /* SHOW DOWNLOAD BUTTON */
-
-                        const downloadButton =
-                            document.getElementById(
-                                "downloadCVButton"
-                            );
-
-
-                        if (downloadButton) {
-
-    downloadButton.style.display = "block";
-    downloadButton.style.visibility = "visible";
-    downloadButton.style.opacity = "1";
-    downloadButton.style.position = "relative";
-    downloadButton.style.zIndex = "99999";
-    downloadButton.style.width = "90%";
-    downloadButton.style.maxWidth = "850px";
-    downloadButton.style.margin = "20px auto";
-    downloadButton.style.background = "#6c4df6";
-    downloadButton.style.color = "#ffffff";
-    downloadButton.style.padding = "16px";
-    downloadButton.style.border = "none";
-    downloadButton.style.borderRadius = "12px";
-    downloadButton.style.fontSize = "16px";
-    downloadButton.style.fontWeight = "700";
-
-    alert("DOWNLOAD BUTTON FOUND AND SHOWN");
-
-                                        }
-
-
-                    } else {
-
-                        alert(
-                            "We could not verify this payment.\n\n" +
-                            "Please contact Nexora support with your payment reference:\n" +
-                            transaction.reference
+                        document.body.appendChild(
+                            downloadButton
                         );
 
                     }
 
 
-                } catch (error) {
+                    /* =========================
+                       MAKE BUTTON VERY VISIBLE
+                    ========================= */
 
-                    console.error(
-                        "Verification error:",
-                        error
-                    );
+                    downloadButton.style.display =
+                        "block";
+
+                    downloadButton.style.position =
+                        "fixed";
+
+                    downloadButton.style.top =
+                        "20px";
+
+                    downloadButton.style.right =
+                        "20px";
+
+                    downloadButton.style.zIndex =
+                        "999999";
+
+                    downloadButton.style.background =
+                        "#6c4df6";
+
+                    downloadButton.style.color =
+                        "#ffffff";
+
+                    downloadButton.style.border =
+                        "3px solid #ffffff";
+
+                    downloadButton.style.padding =
+                        "16px 22px";
+
+                    downloadButton.style.borderRadius =
+                        "12px";
+
+                    downloadButton.style.fontSize =
+                        "16px";
+
+                    downloadButton.style.fontWeight =
+                        "800";
+
+                    downloadButton.style.cursor =
+                        "pointer";
+
+                    downloadButton.style.boxShadow =
+                        "0 10px 30px rgba(0,0,0,0.35)";
 
 
                     alert(
-                        "Payment was received, but verification could not be completed right now.\n\n" +
+                        "Payment verified successfully!\n\n" +
+                        "Your CV is unlocked.\n\n" +
+                        "The DOWNLOAD MY CV button is now at the top-right of the screen."
+                    );
+
+
+                } else {
+
+                    alert(
+                        "We could not verify this payment.\n\n" +
                         "Please contact Nexora support with your payment reference:\n" +
                         transaction.reference
                     );
 
                 }
 
-            },
 
-
-            onCancel: function() {
-
-                alert(
-                    "Payment was cancelled."
-                );
-
-            },
-
-
-            onError: function(error) {
+            } catch (error) {
 
                 console.error(
-                    "Paystack error:",
+                    "Verification error:",
                     error
                 );
 
-
                 alert(
-                    "There was a problem opening the payment window.\n\n" +
-                    (
-                        error.message ||
-                        "Please try again."
-                    )
+                    "Payment was received, but verification could not be completed right now.\n\n" +
+                    "Please contact Nexora support with your payment reference:\n" +
+                    transaction.reference
                 );
 
             }
 
-        });
+        },
 
-    }
 
-        </script>
+        onCancel: function() {
+
+            alert(
+                "Payment was cancelled."
+            );
+
+        },
+
+
+        onError: function(error) {
+
+            console.error(
+                "Paystack error:",
+                error
+            );
+
+            alert(
+                "There was a problem opening the payment window."
+            );
+
+        }
+
+    });
+
+}
+
+    </script>
+   
       
 
 </body>
