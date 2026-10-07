@@ -8,6 +8,7 @@
 
     <!-- Paystack -->
     <script src="https://js.paystack.co/v2/inline.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
     <style>
 
@@ -1065,9 +1066,11 @@
                                 ✏️ Edit My Information
                             </button>
                             <button
+    id="downloadCVButton"
     class="btn payment-btn"
     type="button"
     onclick="downloadCV()"
+    style="display: none;"
 >
     📄 Download My CV as PDF
                             </button>
@@ -1379,7 +1382,12 @@ if (cvContent) {
     cvContent.style.filter = "none";
     cvContent.style.userSelect = "auto";
         }
+const downloadButton =
+    document.getElementById("downloadCVButton");
 
+if (downloadButton) {
+    downloadButton.style.display = "inline-block";
+        }
         } else {
 
             alert(
