@@ -1228,6 +1228,44 @@
                 top: 0,
                 behavior: "smooth"
             });
+            function downloadCV() {
+
+    const cvContent = document.querySelector(".cv-content");
+
+    if (!cvContent) {
+        alert("Your CV could not be found.");
+        return;
+    }
+
+    const fullName =
+        document.getElementById("fullName").value.trim();
+
+    const fileName =
+        (fullName || "Nexora-CV").replace(/\s+/g, "-");
+
+    const options = {
+        margin: 0.4,
+        filename: fileName + "-CV.pdf",
+        image: {
+            type: "jpeg",
+            quality: 0.98
+        },
+        html2canvas: {
+            scale: 2,
+            useCORS: true
+        },
+        jsPDF: {
+            unit: "in",
+            format: "a4",
+            orientation: "portrait"
+        }
+    };
+
+    html2pdf()
+        .set(options)
+        .from(cvContent)
+        .save();
+            }
 
         }
         function downloadCV() {
