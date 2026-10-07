@@ -1064,6 +1064,13 @@
                             >
                                 ✏️ Edit My Information
                             </button>
+                            <button
+    class="btn payment-btn"
+    type="button"
+    onclick="downloadCV()"
+>
+    📄 Download My CV as PDF
+                            </button>
 
 
                             <div class="secure-text">
@@ -1219,6 +1226,17 @@
                 behavior: "smooth"
             });
 
+        }
+        function downloadCV() {
+
+    const cvContent = document.querySelector(".cv-content");
+
+    if (!cvContent) {
+        alert("Your CV could not be found.");
+        return;
+    }
+
+    window.print();
         }
 
 
